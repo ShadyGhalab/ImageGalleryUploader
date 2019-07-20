@@ -14,14 +14,14 @@
 		D5755AD722E305E400E0EEA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5755AD622E305E400E0EEA4 /* Assets.xcassets */; };
 		D5755ADA22E305E400E0EEA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5755AD822E305E400E0EEA4 /* LaunchScreen.storyboard */; };
 		D5755AE522E305E400E0EEA4 /* ImageUploaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755AE422E305E400E0EEA4 /* ImageUploaderTests.swift */; };
-		D5755AF022E30AA400E0EEA4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5755AEF22E30AA400E0EEA4 /* GoogleService-Info.plist */; };
 		D5755AF522E3100500E0EEA4 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF322E3100500E0EEA4 /* ReactiveCocoa.framework */; };
 		D5755AF622E3100500E0EEA4 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF422E3100500E0EEA4 /* ReactiveSwift.framework */; };
-		D5755AF822E3105000E0EEA4 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF322E3100500E0EEA4 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D5755AF922E3105000E0EEA4 /* ReactiveSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF422E3100500E0EEA4 /* ReactiveSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D5755AFB22E3106A00E0EEA4 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AFA22E3106A00E0EEA4 /* FBSnapshotTestCase.framework */; };
 		D5755AFC22E3106E00E0EEA4 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF422E3100500E0EEA4 /* ReactiveSwift.framework */; };
 		D5755AFE22E3108400E0EEA4 /* FBSnapshotTestCase.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AFA22E3106A00E0EEA4 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D5755B1D22E314AC00E0EEA4 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF322E3100500E0EEA4 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D5755B1E22E314AC00E0EEA4 /* ReactiveSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF422E3100500E0EEA4 /* ReactiveSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D5755B3022E3284400E0EEA4 /* FilesUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B2F22E3284400E0EEA4 /* FilesUploader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +41,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D5755AF822E3105000E0EEA4 /* ReactiveCocoa.framework in Embed Frameworks */,
-				D5755AF922E3105000E0EEA4 /* ReactiveSwift.framework in Embed Frameworks */,
+				D5755B1D22E314AC00E0EEA4 /* ReactiveCocoa.framework in Embed Frameworks */,
+				D5755B1E22E314AC00E0EEA4 /* ReactiveSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,10 +72,10 @@
 		D5755AE022E305E400E0EEA4 /* ImageUploaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageUploaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5755AE422E305E400E0EEA4 /* ImageUploaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploaderTests.swift; sourceTree = "<group>"; };
 		D5755AE622E305E400E0EEA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D5755AEF22E30AA400E0EEA4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D5755AF322E3100500E0EEA4 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		D5755AF422E3100500E0EEA4 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
 		D5755AFA22E3106A00E0EEA4 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = "<group>"; };
+		D5755B2F22E3284400E0EEA4 /* FilesUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesUploader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,13 +122,13 @@
 		D5755ACB22E305E200E0EEA4 /* ImageUploader */ = {
 			isa = PBXGroup;
 			children = (
+				D5755B2E22E3283100E0EEA4 /* FileUploader */,
 				D5755ACC22E305E200E0EEA4 /* AppDelegate.swift */,
 				D5755ACE22E305E200E0EEA4 /* ViewController.swift */,
 				D5755AD022E305E200E0EEA4 /* Main.storyboard */,
 				D5755AD622E305E400E0EEA4 /* Assets.xcassets */,
 				D5755AD822E305E400E0EEA4 /* LaunchScreen.storyboard */,
 				D5755ADB22E305E400E0EEA4 /* Info.plist */,
-				D5755AEF22E30AA400E0EEA4 /* GoogleService-Info.plist */,
 				D5755AD322E305E200E0EEA4 /* ImageUploader.xcdatamodeld */,
 			);
 			path = ImageUploader;
@@ -151,6 +151,14 @@
 				D5755AF422E3100500E0EEA4 /* ReactiveSwift.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D5755B2E22E3283100E0EEA4 /* FileUploader */ = {
+			isa = PBXGroup;
+			children = (
+				D5755B2F22E3284400E0EEA4 /* FilesUploader.swift */,
+			);
+			path = FileUploader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +214,11 @@
 				TargetAttributes = {
 					D5755AC822E305E200E0EEA4 = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					D5755ADF22E305E400E0EEA4 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -238,7 +251,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5755ADA22E305E400E0EEA4 /* LaunchScreen.storyboard in Resources */,
-				D5755AF022E30AA400E0EEA4 /* GoogleService-Info.plist in Resources */,
 				D5755AD722E305E400E0EEA4 /* Assets.xcassets in Resources */,
 				D5755AD222E305E200E0EEA4 /* Main.storyboard in Resources */,
 			);
@@ -280,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5755ACF22E305E200E0EEA4 /* ViewController.swift in Sources */,
+				D5755B3022E3284400E0EEA4 /* FilesUploader.swift in Sources */,
 				D5755ACD22E305E200E0EEA4 /* AppDelegate.swift in Sources */,
 				D5755AD522E305E200E0EEA4 /* ImageUploader.xcdatamodeld in Sources */,
 			);
@@ -447,6 +460,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ImageUploader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -468,6 +482,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ImageUploader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -490,6 +505,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ImageUploaderTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -514,6 +530,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ImageUploaderTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
