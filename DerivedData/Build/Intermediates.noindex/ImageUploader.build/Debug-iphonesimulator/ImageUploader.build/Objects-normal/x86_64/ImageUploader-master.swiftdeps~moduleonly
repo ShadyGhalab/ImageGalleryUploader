@@ -1,6 +1,0 @@
-version: "Apple Swift version 5.0.1 (swiftlang-1001.0.82.4 clang-1001.0.46.5)"
-options: "4b8fb9b0867138ea58ee951b958f0196"
-build_time: [1563610728, 876142000]
-inputs:
-  "/Users/mustafas/Library/Autosave Information/ImageUploader/ImageUploader/ViewController.swift": [1563610722, 481545884]
-  "/Users/mustafas/Library/Autosave Information/ImageUploader/ImageUploader/AppDelegate.swift": [1563610722, 476303023]
