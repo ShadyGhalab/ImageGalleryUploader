@@ -21,10 +21,10 @@ private enum Constants {
 }
 
 final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
-   
+    
     static var storyboardName: String = "ImageGallery"
     typealias StoryboardMakeableType = ImageGalleryViewController
-   
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     let viewModel: ImageGalleryViewProtocol = ImageGalleryViewModel()
@@ -35,30 +35,26 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
         }
     }
     
+    private lazy var sectionItems: SectionItems = { indexPath in
+        guard let section = indexPath?.section else { return nil }
+        return self.collectionView.numberOfItems(inSection: section)
+    }
+    
+    lazy var numberOfSections: NumberOfSections = { 
+        self.collectionView.numberOfSections
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDataSource()
-        configureViewModel()
         bindViewModel()
-
+        
+        viewModel.inputs.configure(sectionItems: sectionItems, numberOfSections: numberOfSections)
         viewModel.inputs.viewDidLoad()
     }
     
     private func setupDataSource() {
         dataSource = ImageGalleryDataSource(fetchedResultController: viewModel.outputs.fetchedResultController)
-    }
-    
-    private func configureViewModel() {
-        let numberOfItemsInSection: NumberOfItemsInSection = { [weak self] indexPath in
-            guard let section = indexPath?.section else { return nil }
-            return self?.collectionView.numberOfItems(inSection: section)
-        }
-        
-        let numberOfSections: NumberOfSections = { [weak self] in
-             self?.collectionView.numberOfSections
-        }
-        
-        viewModel.inputs.configure(with: numberOfItemsInSection, numberOfSections: numberOfSections)
     }
     
     private func bindViewModel() {
@@ -79,7 +75,7 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
             .observeValues { [weak self] in
                 self?.collectionView.deleteItems(at: $0)
         }
-
+        
         viewModel.outputs.insertedSection
             .observe(on: UIScheduler())
             .observeValues { [weak self] in
@@ -103,9 +99,9 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
             .observeValues { [weak self] _ in
                 self?.collectionView.performBatchUpdates({ () -> Void in
                     self?.viewModel.inputs.performBatchUpdatesStarted()
-            }, completion: { _ in
+                }, completion: { _ in
                     self?.viewModel.inputs.performBatchUpdatesCompeleted()
-            })
+                })
         }
         
         collectionView.reactive.reloadData <~ viewModel.outputs.reloadData
@@ -115,11 +111,11 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
-            print("User click Camera button")
+            self.openCamera()
         }))
         
         alert.addAction(UIAlertAction(title: "Photo", style: .default, handler: { _ in
-            print("User click Photo button")
+            self.openPhotoLibrary()
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
@@ -127,17 +123,6 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
         }))
         
         self.present(alert, animated: true)
-    }
-    
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.showImageGalleryDetails,
-            let viewController = segue.destination as? ImageGalleryDetailsViewController,
-            let uri = sender as? String {
-          
-           // viewController.viewModel.inputs.configure(with: ImageGalleryProvider(), withUri: uri)
-        }
     }
 }
 
@@ -156,7 +141,47 @@ extension ImageGalleryViewController: UICollectionViewDelegateFlowLayout {
 
 extension ImageGalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
+        
         performSegue(withIdentifier: Constants.showImageGalleryDetails, sender: nil)
     }
+}
+
+extension ImageGalleryViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    private func openCamera() {
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else { return }
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .camera
+        imagePicker.allowsEditing = true
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func openPhotoLibrary() {
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        
+        let editedImage = info[.editedImage] as? UIImage
+        let fileUrl = info[.imageURL] as? URL
+        let resourceName = fileUrl?.lastPathComponent
+        let resourceData = editedImage?.pngData()
+        
+        viewModel.inputs.uploadResource(with: resourceData, name: resourceName)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
