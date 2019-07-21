@@ -9,6 +9,10 @@
 import UIKit
 import CoreData
 
+private enum Constants {
+    static let cloudName: String = "dmpiy9djh"
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -17,6 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+         let fileUploader = FilesUploader(sessionIdentifier: UUID().uuidString, cloudName: Constants.cloudName)
+         let navigationController = window?.rootViewController as? UINavigationController
+         let imageGalleryViewController = navigationController?.topViewController as? ImageGalleryViewController
+        
+         imageGalleryViewController?.viewModel.inputs.configure(with: fileUploader)
+                
         return true
     }
     
