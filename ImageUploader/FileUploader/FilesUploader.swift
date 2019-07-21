@@ -49,7 +49,7 @@ public enum UploadCancelReason {
 }
 
 public protocol FilesUploaderDelegate: class {
-    func didFinishUploading(url: URL)
+    func didFinishUploading(for url: URL, resourceInfo: ResourceInfo?)
     func didChangeProgress(for url: URL, progress: Float)
     func uploadFailed(for url: URL?, resumeData: Data?, cancellationReason: UploadCancelReason?, error: Error?)
     func backgroundTasksFinished()
@@ -58,7 +58,10 @@ public protocol FilesUploaderDelegate: class {
 final class FilesUploader: NSObject {
     private var uploadSession: URLSession!
     private var cloudName: String!
-    
+    private let clouldPresentParameters = ["upload_preset": "zl2tzkdx"]
+    private let responseDecoder: DataResponseDecoding = DataResponseDecoder()
+    private var receivedData: Data?
+    private let uploadedDecodedItem = UploadedDecodedItem()
     weak var delegate: FilesUploaderDelegate?
 
     public convenience init(sessionIdentifier: String, cloudName: String) {
@@ -72,13 +75,13 @@ final class FilesUploader: NSObject {
         self.cloudName = cloudName
     }
     
-    func upload(data: Data, parameters: [String: Any], resourceName: String, resourceType: ResourceType = .image) {
+    func upload(data: Data, resourceName: String, resourceType: ResourceType = .image) {
         let boundaryConstant = UUID().uuidString
         
         if let url = buildUrl(for: resourceType),
             let urlRequest = self.urlRequest(with: url, boundaryConstant: boundaryConstant) {
             
-            let data = buildUploadedData(withResourceData: data, boundaryConstant: boundaryConstant, parameters: parameters)
+            let data = buildUploadedData(withResourceData: data, boundaryConstant: boundaryConstant, parameters: clouldPresentParameters)
             
             do {
                 let url = try writeUploadedDataToFile(data: data, withResourceName: resourceName)
@@ -154,6 +157,9 @@ final class FilesUploader: NSObject {
 extension FilesUploader: URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        if receivedData == nil { receivedData = Data() }
+        receivedData?.append(data)
+        
         os_log("Uploading... : %{public}@", log: logger, type: .info, String(data: data, encoding: .utf8) ?? "Couldn't convert Data to String")
     }
     
@@ -169,16 +175,27 @@ extension FilesUploader: URLSessionDataDelegate {
         os_log("Finished task for url: %{public}@, with error: %{public}@", log: logger, type: .info,
                task.taskRequestUrl.absoluteString, error?.localizedDescription ?? "no error")
         
-        guard let error = error else {
-            delegate?.didFinishUploading(url: task.taskRequestUrl)
+        if error == nil {
+            if let data = receivedData {
+                do {
+                    let resourceInfo = try responseDecoder.decodeModel(from: data, for: uploadedDecodedItem)
+                    delegate?.didFinishUploading(for: task.taskRequestUrl, resourceInfo: resourceInfo)
+                } catch {
+                    os_log("Failed to decode task for url: %{public}@, with error: %{public}@", log: logger, type: .info,
+                           task.taskRequestUrl.absoluteString, error.localizedDescription)
+                }
+                
+                receivedData = nil
+                return
+            }
+            
+            delegate?.didFinishUploading(for: task.taskRequestUrl, resourceInfo: nil)
+            receivedData = nil
             return
         }
-        
-        let url = task.taskRequestUrl
-        
-        containTask(for: url) { [weak self] isValidUrl in
-            if isValidUrl {
-                let nsError = error as NSError
+                
+        containTask(for: task.taskRequestUrl) { [weak self] isValidUrl in
+            if isValidUrl, let nsError = error as NSError? {
                 let resumeData = nsError.userInfo[NSURLSessionDownloadTaskResumeData] as? Data
                 let cancelReason = (nsError.userInfo[NSURLErrorBackgroundTaskCancelledReasonKey] as? NSNumber).flatMap { UploadCancelReason(from: $0) }
                 

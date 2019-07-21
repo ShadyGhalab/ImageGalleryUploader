@@ -34,6 +34,8 @@
 		D5755B4E22E37D6A00E0EEA4 /* ImageGallery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5755B4D22E37D6A00E0EEA4 /* ImageGallery.storyboard */; };
 		D5755B6A22E39B4100E0EEA4 /* Resource+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B6822E39B4100E0EEA4 /* Resource+CoreDataClass.swift */; };
 		D5755B6B22E39B4100E0EEA4 /* Resource+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B6922E39B4100E0EEA4 /* Resource+CoreDataProperties.swift */; };
+		D5755B7022E4AF9E00E0EEA4 /* DataResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B6F22E4AF9E00E0EEA4 /* DataResponseDecoder.swift */; };
+		D5755B7322E4B59D00E0EEA4 /* UploadedResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B7222E4B59D00E0EEA4 /* UploadedResource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,8 @@
 		D5755B4D22E37D6A00E0EEA4 /* ImageGallery.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ImageGallery.storyboard; sourceTree = "<group>"; };
 		D5755B6822E39B4100E0EEA4 /* Resource+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D5755B6922E39B4100E0EEA4 /* Resource+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D5755B6F22E4AF9E00E0EEA4 /* DataResponseDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataResponseDecoder.swift; sourceTree = "<group>"; };
+		D5755B7222E4B59D00E0EEA4 /* UploadedResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadedResource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,7 +190,9 @@
 		D5755B2E22E3283100E0EEA4 /* FileUploader */ = {
 			isa = PBXGroup;
 			children = (
+				D5755B7122E4B56300E0EEA4 /* Models */,
 				D5755B2F22E3284400E0EEA4 /* FilesUploader.swift */,
+				D5755B6F22E4AF9E00E0EEA4 /* DataResponseDecoder.swift */,
 			);
 			path = FileUploader;
 			sourceTree = "<group>";
@@ -194,8 +200,8 @@
 		D5755B3122E37BAA00E0EEA4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D5755B3622E37C3E00E0EEA4 /* ImageGalleryDetailsViewController.swift */,
 				D5755B3722E37C3E00E0EEA4 /* ImageGalleryViewController.swift */,
+				D5755B3622E37C3E00E0EEA4 /* ImageGalleryDetailsViewController.swift */,
 				D5755B3322E37BE300E0EEA4 /* Cells */,
 			);
 			path = Controllers;
@@ -204,8 +210,8 @@
 		D5755B3222E37BBD00E0EEA4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				D5755B3C22E37C7A00E0EEA4 /* ImageGalleryDetailsViewModel.swift */,
 				D5755B3B22E37C7A00E0EEA4 /* ImageGalleryViewModel.swift */,
+				D5755B3C22E37C7A00E0EEA4 /* ImageGalleryDetailsViewModel.swift */,
 				D5755B3A22E37C6A00E0EEA4 /* CellViewModel */,
 			);
 			path = ViewModel;
@@ -267,6 +273,14 @@
 				D5755B6922E39B4100E0EEA4 /* Resource+CoreDataProperties.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		D5755B7122E4B56300E0EEA4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D5755B7222E4B59D00E0EEA4 /* UploadedResource.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -402,6 +416,7 @@
 				D5755B4B22E37D3000E0EEA4 /* StoryboardMakeable.swift in Sources */,
 				D5755B3922E37C3E00E0EEA4 /* ImageGalleryViewController.swift in Sources */,
 				D5755B4822E37D0E00E0EEA4 /* String+Localization.swift in Sources */,
+				D5755B7322E4B59D00E0EEA4 /* UploadedResource.swift in Sources */,
 				D5755B6A22E39B4100E0EEA4 /* Resource+CoreDataClass.swift in Sources */,
 				D5755B4022E37C8B00E0EEA4 /* ImageGalleryCellViewModel.swift in Sources */,
 				D5755ACF22E305E200E0EEA4 /* ViewController.swift in Sources */,
@@ -410,6 +425,7 @@
 				D5755B3022E3284400E0EEA4 /* FilesUploader.swift in Sources */,
 				D5755B6B22E39B4100E0EEA4 /* Resource+CoreDataProperties.swift in Sources */,
 				D5755B3822E37C3E00E0EEA4 /* ImageGalleryDetailsViewController.swift in Sources */,
+				D5755B7022E4AF9E00E0EEA4 /* DataResponseDecoder.swift in Sources */,
 				D5755B3522E37C0000E0EEA4 /* ImageGalleryCollectionViewCell.swift in Sources */,
 				D5755B4322E37CD000E0EEA4 /* ImageGalleryDataSource.swift in Sources */,
 				D5755B3D22E37C7A00E0EEA4 /* ImageGalleryViewModel.swift in Sources */,
