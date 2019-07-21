@@ -10,12 +10,14 @@ import Foundation
 import ReactiveSwift
 import CoreData
 
-typealias NumberOfItemsInSection = ((IndexPath?) -> Int?)
+typealias SectionItems = ((IndexPath?) -> Int?)
 typealias NumberOfSections = (() -> Int?)
 
 protocol ImageGalleryViewInputs {
-    func configure(with numberOfItemsInSection: @escaping NumberOfItemsInSection, numberOfSections: @escaping NumberOfSections)
+    func configure(with fileUploader: FilesUploader)
+    func configure(sectionItems: SectionItems?, numberOfSections: NumberOfSections?)
     func viewDidLoad()
+    func uploadResource(with data: Data?, name: String?)
     func performBatchUpdatesStarted()
     func performBatchUpdatesCompeleted()
 }
@@ -37,14 +39,16 @@ protocol ImageGalleryViewProtocol: Any {
     var outputs: ImageGalleryViewOutputs { get }
 }
 
-class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGalleryViewOutputs, ImageGalleryViewProtocol {
+final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGalleryViewOutputs, ImageGalleryViewProtocol {
     
     var inputs: ImageGalleryViewInputs { return self }
     var outputs: ImageGalleryViewOutputs { return self }
     
-    var blockOperations: [BlockOperation] = []
-    var _fetchedResultsController: NSFetchedResultsController<Resource>? // swiftlint:disable:this identifier_name
-    var shouldReloadCollectionView: Bool = false
+    private var blockOperations: [BlockOperation] = []
+    private var _fetchedResultsController: NSFetchedResultsController<Resource>? // swiftlint:disable:this identifier_name
+    private var shouldReloadCollectionView: Bool = false
+    private var sectionItems: SectionItems?
+    private var numberOfSections: NumberOfSections?
     
     override init() {
         insertedIndexPaths = viewDidLoadProperty.signal
@@ -74,18 +78,45 @@ class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGalleryViewO
         reloadData = reloadDataProperty.signal
         
         performBatchUpdates = performBatchUpdatesProperty.signal
+        
+        uploadedResourceDataProperty.signal.skipNil()
+            .combineLatest(with: uploadedResourceNameProperty.signal.skipNil())
+            .combineLatest(with: fileUploaderProperty.signal.skipNil())
+            .observeValues { dataAndName, fileUploader in
+                let data = dataAndName.0
+                let name = dataAndName.1
+                fileUploader.upload(data: data, resourceName: name)
+        }
+        
+        resourceInfoProperty.signal.skipNil()
+            .combineLatest(with: uploadedResourceNameProperty.signal.skipNil())
+            .observeValues { resourceInfo, name in
+                Resource.make(id: resourceInfo.id, name: name, createdAt: resourceInfo.createdAt, isUploaded: true)
+        }
     }
     
-    private var numberOfItemsInSection: ((IndexPath?) -> Int?)?
-    private var numberOfSections: (() -> Int?)?
-    func configure(with numberOfItemsInSection: @escaping ((IndexPath?) -> Int?), numberOfSections: @escaping (() -> Int?)) {
-        self.numberOfItemsInSection = numberOfItemsInSection
+    private let fileUploaderProperty = MutableProperty<FilesUploader?>(nil)
+    func configure(with fileUploader: FilesUploader) {
+        fileUploader.delegate = self
+        fileUploaderProperty.value = fileUploader
+    }
+    
+    func configure(sectionItems: SectionItems?, numberOfSections: NumberOfSections?) {
+        self.sectionItems = sectionItems
         self.numberOfSections = numberOfSections
     }
     
     private let viewDidLoadProperty = MutableProperty(())
     func viewDidLoad() {
         viewDidLoadProperty.value = ()
+    }
+    
+    func performBatchUpdatesStarted() {
+        blockOperations.forEach { $0.start() }
+    }
+    
+    func performBatchUpdatesCompeleted() {
+        blockOperations.removeAll(keepingCapacity: false)
     }
     
     private let insertedIndexPathProperty = MutableProperty<IndexPath?>(nil)
@@ -128,18 +159,25 @@ class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGalleryViewO
         performBatchUpdatesProperty.value = ()
     }
     
-    func performBatchUpdatesStarted() {
-        for operation: BlockOperation in blockOperations {
-            operation.start()
-        }
+    private let uploadingCompletedProperty = MutableProperty<String?>(nil)
+    private func uploadingCompleted(with id: String?) {
+        uploadingCompletedProperty.value = id
     }
     
-    func performBatchUpdatesCompeleted() {
-        blockOperations.removeAll(keepingCapacity: false)
+    private let uploadedResourceDataProperty = MutableProperty<Data?>(nil)
+    private let uploadedResourceNameProperty = MutableProperty<String?>(nil)
+    func uploadResource(with data: Data?, name: String?) {
+        uploadedResourceDataProperty.value = data
+        uploadedResourceNameProperty.value = name
+    }
+    
+    private let resourceInfoProperty = MutableProperty<ResourceInfo?>(nil)
+    private func insertResource(with resourceInfo: ResourceInfo?) {
+        resourceInfoProperty.value = resourceInfo
     }
     
     deinit {
-        for operation: BlockOperation in blockOperations { operation.cancel() }
+        blockOperations.forEach { $0.start() }
         blockOperations.removeAll(keepingCapacity: false)
     }
     
@@ -151,7 +189,6 @@ class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGalleryViewO
     let deletedSection: Signal<NSIndexSet, Never>
     let reloadData: Signal<(), Never>
     let performBatchUpdates: Signal<(), Never>
-
 }
 
 extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
@@ -162,7 +199,7 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
         }
         
         let fetchRequest: NSFetchRequest<Resource> = Resource.fetchRequest()
-        let managedObjectContext = AppDelegate.managedObjectContext
+        let managedObjectContext = AppDelegate.delegate.persistentContainer.viewContext
        
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
         let resultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
@@ -198,7 +235,7 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
     
     private func insertItem(at newIndexPath: IndexPath?) {
         if let numberOfSections = numberOfSections?(), numberOfSections > 0 {
-            if let numberOfItems = numberOfItemsInSection?(newIndexPath), numberOfItems == 0 {
+            if let numberOfItems = sectionItems?(newIndexPath), numberOfItems == 0 {
                 shouldReloadCollectionView = true
             } else {
                 blockOperations.append(
@@ -225,7 +262,7 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
     }
     
     private func deleteItem(at indexPath: IndexPath?) {
-        if let numberOfItems = numberOfItemsInSection?(indexPath), numberOfItems == 1 {
+        if let numberOfItems = sectionItems?(indexPath), numberOfItems == 1 {
             shouldReloadCollectionView = true
         } else {
             blockOperations.append(
@@ -282,4 +319,16 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
             }
         }
     }
+}
+
+extension ImageGalleryViewModel: FilesUploaderDelegate {
+    func didFinishUploading(for url: URL, resourceInfo: ResourceInfo?) {
+        insertResource(with: resourceInfo)
+    }
+    
+    func didChangeProgress(for url: URL, progress: Float) { }
+    
+    func uploadFailed(for url: URL?, resumeData: Data?, cancellationReason: UploadCancelReason?, error: Error?) {  }
+    
+    func backgroundTasksFinished() { }
 }

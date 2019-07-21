@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
          let fileUploader = FilesUploader(sessionIdentifier: UUID().uuidString, cloudName: Constants.cloudName)
@@ -82,10 +81,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     
-   static var managedObjectContext: NSManagedObjectContext {
+   static var delegate: AppDelegate {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate // swiftlint:disable:this force_cast
-        let managedObjectContext = appDelegate.persistentContainer.viewContext 
-       
-        return managedObjectContext
+    
+        return delegate
     }
 }
