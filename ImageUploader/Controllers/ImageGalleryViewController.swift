@@ -48,7 +48,6 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
         super.viewDidLoad()
         setupDataSource()
         bindViewModel()
-        
         viewModel.inputs.configure(sectionItems: sectionItems, numberOfSections: numberOfSections)
         viewModel.inputs.viewDidLoad()
     }
@@ -104,6 +103,19 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
                 })
         }
         
+        viewModel.outputs.loadingIndicatorStarted
+            .observe(on: UIScheduler())
+            .observeValues { [weak self] in
+                self?.navigationItem.titleView?.isHidden = false
+        }
+        
+        viewModel.outputs.loadingIndicatorStoped
+            .observe(on: UIScheduler())
+            .observeValues { [weak self] in
+                self?.navigationItem.titleView?.isHidden = true
+        }
+        
+       
         collectionView.reactive.reloadData <~ viewModel.outputs.reloadData
     }
     

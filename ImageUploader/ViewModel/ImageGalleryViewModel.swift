@@ -32,6 +32,8 @@ protocol ImageGalleryViewOutputs {
     var reloadData: Signal<(), Never> { get }
     var performBatchUpdates: Signal<(), Never> { get }
     var fetchedResultController: NSFetchedResultsController<Resource> { get }
+    var loadingIndicatorStarted: Signal<(), Never> { get }
+    var loadingIndicatorStoped: Signal<(), Never> { get }
 }
 
 protocol ImageGalleryViewProtocol: Any {
@@ -87,6 +89,12 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
                 let name = dataAndName.1
                 fileUploader.upload(data: data, resourceName: name)
         }
+        
+        loadingIndicatorStarted = uploadedResourceDataProperty.signal.skipNil()
+            .combineLatest(with: uploadedResourceNameProperty.signal.skipNil())
+            .map { _ in () }
+        
+        loadingIndicatorStoped = didFinishUploadingProperty.signal
         
         resourceInfoProperty.signal.skipNil()
             .combineLatest(with: uploadedResourceNameProperty.signal.skipNil())
@@ -176,6 +184,11 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
         resourceInfoProperty.value = resourceInfo
     }
     
+    private let didFinishUploadingProperty = MutableProperty<()>(())
+    private func didFinishUploading() {
+        didFinishUploadingProperty.value = ()
+    }
+    
     deinit {
         blockOperations.forEach { $0.start() }
         blockOperations.removeAll(keepingCapacity: false)
@@ -189,6 +202,8 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
     let deletedSection: Signal<NSIndexSet, Never>
     let reloadData: Signal<(), Never>
     let performBatchUpdates: Signal<(), Never>
+    let loadingIndicatorStarted: Signal<(), Never>
+    let loadingIndicatorStoped: Signal<(), Never>
 }
 
 extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
@@ -199,8 +214,8 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
         }
         
         let fetchRequest: NSFetchRequest<Resource> = Resource.fetchRequest()
-        let managedObjectContext = AppDelegate.delegate.persistentContainer.viewContext
-       
+        let managedObjectContext = AppDelegate.shared.persistentContainer.viewContext
+        
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
         let resultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                            managedObjectContext: managedObjectContext,
@@ -240,9 +255,7 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
             } else {
                 blockOperations.append(
                     BlockOperation(block: { [weak self] in
-                        DispatchQueue.main.async {
-                            self?.willInsertItem(at: newIndexPath)
-                        }
+                        self?.willInsertItem(at: newIndexPath)
                     })
                 )
             }
@@ -254,9 +267,7 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
     private func updateItem(at indexPath: IndexPath?) {
         blockOperations.append(
             BlockOperation(block: { [weak self] in
-                DispatchQueue.main.async {
-                    self?.willUpdateItem(at: indexPath)
-                }
+                self?.willUpdateItem(at: indexPath)
             })
         )
     }
@@ -267,9 +278,7 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
         } else {
             blockOperations.append(
                 BlockOperation(block: { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.willUpdateItem(at: indexPath)
-                    }
+                    self?.willUpdateItem(at: indexPath)
                 })
             )
         }
@@ -282,25 +291,19 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
         case .insert:
             blockOperations.append(
                 BlockOperation(block: { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.willInsertSection(atSectionIndex: sectionIndex)
-                    }
+                    self?.willInsertSection(atSectionIndex: sectionIndex)
                 })
             )
         case .update:
             blockOperations.append(
                 BlockOperation(block: { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.willUpdateSection(atSectionIndex: sectionIndex)
-                    }
+                    self?.willUpdateSection(atSectionIndex: sectionIndex)
                 })
             )
         case .delete:
             blockOperations.append(
                 BlockOperation(block: { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.willDeleteSection(atSectionIndex: sectionIndex)
-                    }
+                    self?.willDeleteSection(atSectionIndex: sectionIndex)
                 })
             )
         default:
@@ -309,14 +312,10 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        if self.shouldReloadCollectionView {
-            DispatchQueue.main.async {
-                self.reloadDataIfNeeded()
-            }
+        if shouldReloadCollectionView {
+            self.reloadDataIfNeeded()
         } else {
-            DispatchQueue.main.async {
-                self.performBatchUpdatesIfNeeded()
-            }
+            self.performBatchUpdatesIfNeeded()
         }
     }
 }
@@ -324,6 +323,7 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
 extension ImageGalleryViewModel: FilesUploaderDelegate {
     func didFinishUploading(for url: URL, resourceInfo: ResourceInfo?) {
         insertResource(with: resourceInfo)
+        didFinishUploading()
     }
     
     func didChangeProgress(for url: URL, progress: Float) { }
