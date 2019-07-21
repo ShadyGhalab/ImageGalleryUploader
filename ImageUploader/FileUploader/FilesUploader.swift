@@ -193,8 +193,9 @@ extension FilesUploader: URLSessionDataDelegate {
             receivedData = nil
             return
         }
-                
-        containTask(for: task.taskRequestUrl) { [weak self] isValidUrl in
+        
+        let url = task.taskRequestUrl
+        containTask(for: url) { [weak self] isValidUrl in
             if isValidUrl, let nsError = error as NSError? {
                 let resumeData = nsError.userInfo[NSURLSessionDownloadTaskResumeData] as? Data
                 let cancelReason = (nsError.userInfo[NSURLErrorBackgroundTaskCancelledReasonKey] as? NSNumber).flatMap { UploadCancelReason(from: $0) }
