@@ -12,7 +12,7 @@ import CoreData
 
 let isoDateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS zzz"
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
     if let tmZone = TimeZone(abbreviation: "UTC") {
         dateFormatter.timeZone = tmZone
     }
@@ -31,7 +31,7 @@ extension Resource {
     @NSManaged public var createdAt: NSDate?
 
     static func make(id: String, name: String, createdAt: String, isUploaded: Bool) {
-        let appDelegate = AppDelegate.delegate
+        let appDelegate = AppDelegate.shared
         
         let resource = Resource(context: appDelegate.persistentContainer.viewContext)
         resource.createdAt = isoDateFormatter.date(from: createdAt) as NSDate?
