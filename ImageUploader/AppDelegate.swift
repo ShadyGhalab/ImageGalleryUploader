@@ -81,9 +81,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     
-   static var delegate: AppDelegate {
+   static var shared: AppDelegate {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate // swiftlint:disable:this force_cast
     
-        return delegate
+        return appDelegate
     }
 }
