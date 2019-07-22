@@ -13,24 +13,24 @@ protocol FilesStoring {
     func removeData(with resourceName: String) throws 
 }
 
-struct FileStorageManager: FilesStoring {
+final class FileStorageManager: FilesStoring {
      private let fileManager = FileManager.default
    
      lazy var documentUrl: URL = {
          fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! // swiftlint:disable:this force_unwrapping
      }()
     
-     func writeUploadedDataToFile(with data: Data, withResourceName resourceName: String) throws -> URL {
-        let url = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(resourceName)
+    func writeUploadedDataToFile(with data: Data, withResourceName resourceName: String) throws -> URL {
+        let url = documentUrl.appendingPathComponent(resourceName)
         
-        try data.write(to: url!) // swiftlint:disable:this force_unwrapping
+        try data.write(to: url)
         
-        return url! // swiftlint:disable:this force_unwrapping
+        return url
     }
     
     func removeData(with resourceName: String) throws {
-        let url = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(resourceName)
+        let url = documentUrl.appendingPathComponent(resourceName)
         
-        try fileManager.removeItem(at: url!)  // swiftlint:disable:this force_unwrapping
+        try fileManager.removeItem(at: url)
     }
 }
