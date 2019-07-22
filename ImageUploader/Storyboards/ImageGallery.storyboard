@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gaA-c2-fhp">
-                                <rect key="frame" x="10" y="84" width="394" height="652"/>
+                                <rect key="frame" x="10" y="84" width="394" height="632"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="q0F-z5-DZZ">
                                     <size key="itemSize" width="200" height="134"/>
@@ -56,7 +56,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gaA-c2-fhp" secondAttribute="bottom" id="NrI-0R-NHV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gaA-c2-fhp" secondAttribute="bottom" constant="20" id="NrI-0R-NHV"/>
                             <constraint firstItem="gaA-c2-fhp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="Yxi-DY-hnU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gaA-c2-fhp" secondAttribute="trailing" constant="10" id="bs8-nJ-aAE"/>
                             <constraint firstItem="gaA-c2-fhp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="qIG-fh-R6r"/>
