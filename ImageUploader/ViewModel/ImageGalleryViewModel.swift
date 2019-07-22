@@ -9,12 +9,15 @@
 import Foundation
 import ReactiveSwift
 import CoreData
+import os.log
+
+fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "ImageGallery") // swiftlint:disable:this force_unwrapping
 
 typealias SectionItems = ((IndexPath?) -> Int?)
 typealias NumberOfSections = (() -> Int?)
 
 protocol ImageGalleryViewInputs {
-    func configure(with fileUploader: FilesUploader)
+    func configure(with fileUploader: FilesUploader, fileStorageManager: FilesStoring)
     func configure(sectionItems: SectionItems?, numberOfSections: NumberOfSections?)
     func viewDidLoad()
     func uploadResource(with data: Data?, name: String?)
@@ -82,9 +85,10 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
         
         performBatchUpdates = performBatchUpdatesProperty.signal
         
-        uploadedResourceDataProperty.signal.skipNil()
-            .combineLatest(with: uploadedResourceNameProperty.signal.skipNil())
-            .combineLatest(with: fileUploaderProperty.signal.skipNil())
+        let dataAndNameSignal = Signal.zip(uploadedResourceDataProperty.signal.skipNil(),
+                                           uploadedResourceNameProperty.signal.skipNil())
+
+        dataAndNameSignal.withLatest(from: fileUploaderProperty.signal.skipNil())
             .observeValues { dataAndName, fileUploader in
                 let data = dataAndName.0
                 let name = dataAndName.1
@@ -98,18 +102,36 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
         loadingIndicatorStopped = didFinishUploadingProperty.signal
         
         resourceInfoProperty.signal.skipNil()
-            .combineLatest(with: uploadedResourceNameProperty.signal.skipNil())
+            .skipRepeats ( == )
+            .withLatest(from: uploadedResourceNameProperty.signal.skipNil())
             .observeValues { resourceInfo, name in
                 Resource.make(id: resourceInfo.id, name: name, createdAt: resourceInfo.createdAt, isUploaded: true)
+        }
+        
+        resourceInfoProperty.signal.skipNil()
+            .skipRepeats ( == )
+            .combineLatest(with: dataAndNameSignal.signal)
+            .combineLatest(with: fileStorageManagerProperty.signal.skipNil())
+            .map { ($0.0.1.1, $0.0.1.0, $0.1) }
+            .observeValues { name, data, fileStorageManager in
+                do {
+                    try fileStorageManager.removeData(with: name)
+                    try _ = fileStorageManager.writeUploadedDataToFile(with: data, withResourceName: name)
+                } catch {
+                    os_log("Failed to write resource data in the file with name: %{public}@, with error: %{public}@",
+                           log: logger, type: .info, name, error.localizedDescription)
+                }
         }
         
         uploadingProgress = uploadingProgressProperty.signal.skipNil()
     }
     
     private let fileUploaderProperty = MutableProperty<FilesUploader?>(nil)
-    func configure(with fileUploader: FilesUploader) {
+    private let fileStorageManagerProperty = MutableProperty<FilesStoring?>(nil)
+    func configure(with fileUploader: FilesUploader, fileStorageManager: FilesStoring) {
         fileUploader.delegate = self
         fileUploaderProperty.value = fileUploader
+        fileStorageManagerProperty.value = fileStorageManager
     }
     
     func configure(sectionItems: SectionItems?, numberOfSections: NumberOfSections?) {

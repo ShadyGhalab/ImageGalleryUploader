@@ -62,6 +62,8 @@ final class FilesUploader: NSObject {
     private let responseDecoder: DataResponseDecoding = DataResponseDecoder()
     private var receivedData: Data?
     private let uploadedDecodedItem = UploadedDecodedItem()
+    private let fileStorageManager: FilesStoring = FileStorageManager()
+    
     weak var delegate: FilesUploaderDelegate?
 
     public convenience init(sessionIdentifier: String, cloudName: String) {
@@ -84,7 +86,7 @@ final class FilesUploader: NSObject {
             let data = buildUploadedData(withResourceData: data, boundaryConstant: boundaryConstant, parameters: clouldPresentParameters)
             
             do {
-                let url = try writeUploadedDataToFile(data: data, withResourceName: resourceName)
+                let url = try fileStorageManager.writeUploadedDataToFile(with: data, withResourceName: resourceName)
                 uploadSession.uploadTask(with: urlRequest, fromFile: url).resume()
             } catch {
                 os_log("Failed to write resource data in the file for url: %{public}@, with error: %{public}@",
@@ -142,15 +144,6 @@ final class FilesUploader: NSObject {
         //swiftlint:enable force_unwrapping
         
         return data
-    }
-    
-    private func writeUploadedDataToFile(data: Data, withResourceName resourceName: String) throws -> URL {
-        let fileManager = FileManager.default
-        let url = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(resourceName)
-        
-        try data.write(to: url!) // swiftlint:disable:this force_unwrapping
-        
-        return url! // swiftlint:disable:this force_unwrapping
     }
 }
 

@@ -9,9 +9,13 @@
 import Foundation
 import ReactiveSwift
 
-public struct ResourceInfo {
+public struct ResourceInfo: Equatable {
     let id: String
     let createdAt: String
+    
+    public static func == (lhs: ResourceInfo, rhs: ResourceInfo) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 public protocol DecodedItem {

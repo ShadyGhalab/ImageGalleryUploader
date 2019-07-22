@@ -22,7 +22,7 @@ final class ImageGalleryCollectionViewCell: UICollectionViewCell {
     }
     
     func bindViewModel() {
-       // imageView.reactive.image <~ viewModel.outputs.image
+        imageView.reactive.image <~ viewModel.outputs.image
     }
     
     override func prepareForReuse() {

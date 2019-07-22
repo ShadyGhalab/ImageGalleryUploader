@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          let navigationController = window?.rootViewController as? UINavigationController
          let imageGalleryViewController = navigationController?.topViewController as? ImageGalleryViewController
         
-         imageGalleryViewController?.viewModel.inputs.configure(with: fileUploader)
+         imageGalleryViewController?.viewModel.inputs.configure(with: fileUploader, fileStorageManager: FileStorageManager())
                 
         return true
     }
