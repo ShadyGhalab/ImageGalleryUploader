@@ -140,7 +140,18 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
             print("User click Cancel button")
         }))
         
-        self.present(alert, animated: true)
+         present(alert, animated: true)
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.showImageGalleryDetails,
+            let viewController = segue.destination as? ImageGalleryDetailsViewController,
+            let resource = sender as? Resource {
+            
+            viewController.viewModel.inputs.configure(with: resource)
+        }
     }
 }
 
@@ -159,8 +170,9 @@ extension ImageGalleryViewController: UICollectionViewDelegateFlowLayout {
 
 extension ImageGalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let resource = dataSource?.resource(for: indexPath) else { return }
         
-        performSegue(withIdentifier: Constants.showImageGalleryDetails, sender: nil)
+        performSegue(withIdentifier: Constants.showImageGalleryDetails, sender: resource)
     }
 }
 

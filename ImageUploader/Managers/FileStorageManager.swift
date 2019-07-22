@@ -14,7 +14,11 @@ protocol FilesStoring {
 }
 
 struct FileStorageManager: FilesStoring {
-     let fileManager = FileManager.default
+     private let fileManager = FileManager.default
+   
+     lazy var documentUrl: URL = {
+         fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! // swiftlint:disable:this force_unwrapping
+     }()
     
      func writeUploadedDataToFile(with data: Data, withResourceName resourceName: String) throws -> URL {
         let url = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(resourceName)

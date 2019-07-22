@@ -35,3 +35,9 @@ class ImageGalleryDataSource: NSObject, UICollectionViewDataSource {
         return cell ?? UICollectionViewCell()
     }
 }
+
+extension ImageGalleryDataSource {
+    func resource(for indexPath: IndexPath) -> Resource? {
+        return fetchedResultController.fetchedObjects?[indexPath.item]
+    }
+}
