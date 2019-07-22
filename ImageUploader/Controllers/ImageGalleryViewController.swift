@@ -189,10 +189,10 @@ extension ImageGalleryViewController: UIImagePickerControllerDelegate, UINavigat
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
-        let editedImage = info[.editedImage] as? UIImage
+        let image = info[.editedImage] as? UIImage
         let fileUrl = info[.imageURL] as? URL
-        let resourceName = fileUrl?.lastPathComponent
-        let resourceData = editedImage?.pngData()
+        let resourceName = fileUrl?.lastPathComponent ?? UUID().uuidString
+        let resourceData = image?.jpegData(compressionQuality: 0.5)
         
         viewModel.inputs.uploadResource(with: resourceData, name: resourceName)
         dismiss(animated: true, completion: nil)
