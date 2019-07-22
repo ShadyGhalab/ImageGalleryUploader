@@ -136,8 +136,12 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
     }
     
     @IBAction func addResourceBarButtonTapped(_ sender: Any) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        guard let addBarButtonItem = sender as? UIBarButtonItem else {
+            return
+        }
         
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
             self.openCamera()
         }))
@@ -149,6 +153,12 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
             print("User click Cancel button")
         }))
+        
+        if let presenter = alert.popoverPresentationController,
+            let bounds = addBarButtonItem.view?.bounds {
+            presenter.sourceView = addBarButtonItem.view
+            presenter.sourceRect = bounds
+        }
         
          present(alert, animated: true)
     }
@@ -224,4 +234,14 @@ extension ImageGalleryViewController: UIImagePickerControllerDelegate, UINavigat
         dismiss(animated: true, completion: nil)
     }
     
+}
+
+fileprivate extension UIBarButtonItem {
+    var view: UIView? {
+        guard let view = value(forKey: "view") as? UIView else {
+            return nil
+        }
+        
+        return view
+    }
 }
