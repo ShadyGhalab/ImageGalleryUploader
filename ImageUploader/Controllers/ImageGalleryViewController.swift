@@ -61,6 +61,7 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
             .observe(on: UIScheduler())
             .observeValues { [weak self] in
                 self?.collectionView.insertItems(at: $0)
+                self?.scrollCollectionViewToBottom()
         }
         
         viewModel.outputs.updatedIndexPaths
@@ -123,6 +124,15 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
         
        
         collectionView.reactive.reloadData <~ viewModel.outputs.reloadData
+    }
+    
+    private func scrollCollectionViewToBottom() {
+        let contentHeight = collectionView.contentSize.height
+        let heightAfterInserts = collectionView.frame.size.height - (collectionView.contentInset.top + collectionView.contentInset.bottom)
+       
+        if contentHeight > heightAfterInserts {
+            collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentSize.height - collectionView.frame.size.height), animated: true)
+        }
     }
     
     @IBAction func addResourceBarButtonTapped(_ sender: Any) {
