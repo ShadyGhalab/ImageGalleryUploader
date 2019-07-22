@@ -33,7 +33,8 @@ protocol ImageGalleryViewOutputs {
     var performBatchUpdates: Signal<(), Never> { get }
     var fetchedResultController: NSFetchedResultsController<Resource> { get }
     var loadingIndicatorStarted: Signal<(), Never> { get }
-    var loadingIndicatorStoped: Signal<(), Never> { get }
+    var loadingIndicatorStopped: Signal<(), Never> { get }
+    var uploadingProgress: Signal<Float, Never> { get }
 }
 
 protocol ImageGalleryViewProtocol: Any {
@@ -94,13 +95,15 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
             .combineLatest(with: uploadedResourceNameProperty.signal.skipNil())
             .map { _ in () }
         
-        loadingIndicatorStoped = didFinishUploadingProperty.signal
+        loadingIndicatorStopped = didFinishUploadingProperty.signal
         
         resourceInfoProperty.signal.skipNil()
             .combineLatest(with: uploadedResourceNameProperty.signal.skipNil())
             .observeValues { resourceInfo, name in
                 Resource.make(id: resourceInfo.id, name: name, createdAt: resourceInfo.createdAt, isUploaded: true)
         }
+        
+        uploadingProgress = uploadingProgressProperty.signal.skipNil()
     }
     
     private let fileUploaderProperty = MutableProperty<FilesUploader?>(nil)
@@ -189,6 +192,11 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
         didFinishUploadingProperty.value = ()
     }
     
+    private let uploadingProgressProperty = MutableProperty<Float?>(nil)
+    private func uploading(with progress: Float) {
+        uploadingProgressProperty.value = progress
+    }
+    
     deinit {
         blockOperations.forEach { $0.start() }
         blockOperations.removeAll(keepingCapacity: false)
@@ -203,7 +211,8 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
     let reloadData: Signal<(), Never>
     let performBatchUpdates: Signal<(), Never>
     let loadingIndicatorStarted: Signal<(), Never>
-    let loadingIndicatorStoped: Signal<(), Never>
+    let loadingIndicatorStopped: Signal<(), Never>
+    let uploadingProgress: Signal<Float, Never>
 }
 
 extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
@@ -326,7 +335,9 @@ extension ImageGalleryViewModel: FilesUploaderDelegate {
         didFinishUploading()
     }
     
-    func didChangeProgress(for url: URL, progress: Float) { }
+    func didChangeProgress(for url: URL, progress: Float) {
+        uploading(with: progress)
+    }
     
     func uploadFailed(for url: URL?, resumeData: Data?, cancellationReason: UploadCancelReason?, error: Error?) {  }
     

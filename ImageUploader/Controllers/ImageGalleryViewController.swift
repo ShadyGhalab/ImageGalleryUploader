@@ -109,10 +109,16 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
                 self?.navigationItem.titleView?.isHidden = false
         }
         
-        viewModel.outputs.loadingIndicatorStoped
+        viewModel.outputs.loadingIndicatorStopped
             .observe(on: UIScheduler())
             .observeValues { [weak self] in
                 self?.navigationItem.titleView?.isHidden = true
+        }
+        
+        viewModel.outputs.uploadingProgress
+            .observe(on: UIScheduler())
+            .observeValues { [weak self] progress in
+                (self?.navigationItem.titleView as? LoadingView)?.viewModel.inputs.configure(with: progress)
         }
         
        
