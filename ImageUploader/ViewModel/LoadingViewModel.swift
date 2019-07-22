@@ -43,6 +43,5 @@ struct LoadingViewModel: LoadingViewInputs, LoadingViewOutputs, LoadingViewProto
         uploadingProgressProperty.value = progress
     }
     
-    
     let uploadingProgress: Signal<String, Never>
 }

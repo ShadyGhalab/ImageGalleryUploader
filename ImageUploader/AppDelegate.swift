@@ -31,12 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
                      handleEventsForBackgroundURLSession identifier: String,
-                     completionHandler: @escaping () -> Void) {
-        
-      
-        
-        
-    }
+                     completionHandler: @escaping () -> Void) { }
 
     func applicationWillResignActive(_ application: UIApplication) { }
 
@@ -80,7 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 extension AppDelegate {
-    
    static var shared: AppDelegate {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate // swiftlint:disable:this force_cast
     

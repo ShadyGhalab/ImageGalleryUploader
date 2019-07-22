@@ -13,7 +13,7 @@ private enum Constants {
     static let ImageGalleryCellIdentififer = "ImageGalleryCellIdentififer"
 }
 
-class ImageGalleryDataSource: NSObject, UICollectionViewDataSource {
+final class ImageGalleryDataSource: NSObject, UICollectionViewDataSource {
 
     private var fetchedResultController: NSFetchedResultsController<Resource>
     
@@ -28,8 +28,8 @@ class ImageGalleryDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.ImageGalleryCellIdentififer,
                                                       for: indexPath) as? ImageGalleryCollectionViewCell
-       
         let resource = fetchedResultController.fetchedObjects?[indexPath.item]
+      
         cell?.viewModel.inputs.configure(with: resource)
         
         return cell ?? UICollectionViewCell()

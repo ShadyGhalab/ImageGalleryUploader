@@ -60,10 +60,10 @@ final class FilesUploader: NSObject {
     private var cloudName: String!
     private let clouldPresentParameters = ["upload_preset": "zl2tzkdx"]
     private let responseDecoder: DataResponseDecoding = DataResponseDecoder()
-    private var receivedData: Data?
     private let uploadedDecodedItem = UploadedDecodedItem()
     private let fileStorageManager: FilesStoring = FileStorageManager()
-    
+    private var receivedData: Data?
+
     weak var delegate: FilesUploaderDelegate?
 
     public convenience init(sessionIdentifier: String, cloudName: String) {
@@ -86,7 +86,7 @@ final class FilesUploader: NSObject {
             let data = buildUploadedData(withResourceData: data, boundaryConstant: boundaryConstant, parameters: clouldPresentParameters)
             
             do {
-                let url = try fileStorageManager.writeUploadedDataToFile(with: data, withResourceName: resourceName)
+                let url = try fileStorageManager.write(data: data, withResourceName: resourceName)
                 uploadSession.uploadTask(with: urlRequest, fromFile: url).resume()
             } catch {
                 os_log("Failed to write resource data in the file for url: %{public}@, with error: %{public}@",

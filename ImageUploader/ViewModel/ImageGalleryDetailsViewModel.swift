@@ -11,7 +11,7 @@ import ReactiveSwift
 import UIKit.UIImage
 
 protocol ImageGalleryDetailsViewInputs {
-    func configure(with imageProvider: Resource)
+    func configure(with resource: Resource)
     func viewDidLoad()
 }
 
@@ -28,12 +28,12 @@ struct ImageGalleryDetailsViewModel: ImageGalleryDetailsViewInputs, ImageGallery
    
     var inputs: ImageGalleryDetailsViewInputs { return self }
     var outputs: ImageGalleryDetailsViewOutputs { return self }
+   
     private let fileManager = FileStorageManager()
 
     init() {
         
         let documentUrl = fileManager.documentUrl
-
         image = viewDidLoadProperty.signal
             .combineLatest(with: resourceProperty.signal)
             .map { $0.1?.name }
@@ -42,6 +42,7 @@ struct ImageGalleryDetailsViewModel: ImageGalleryDetailsViewInputs, ImageGallery
                 do {
                     let file = documentUrl.appendingPathComponent(name)
                     let data = try Data(contentsOf: file)
+                   
                     return UIImage(data: data)
                 } catch {
                     return nil

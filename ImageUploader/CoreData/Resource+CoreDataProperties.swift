@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-let isoDateFormatter: DateFormatter = {
+fileprivate let isoDateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
     if let tmZone = TimeZone(abbreviation: "UTC") {

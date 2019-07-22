@@ -39,6 +39,7 @@ struct ImageGalleryCellViewModel: ImageGalleryCellViewInputs, ImageGalleryCellVi
                 do {
                     let file = documentUrl.appendingPathComponent(name)
                     let data = try Data(contentsOf: file)
+                  
                     return UIImage(data: data)
                 } catch {
                     return nil

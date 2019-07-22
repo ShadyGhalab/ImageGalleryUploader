@@ -9,8 +9,8 @@
 import Foundation
 
 protocol FilesStoring {
-    func writeUploadedDataToFile(with data: Data, withResourceName resourceName: String) throws -> URL
-    func removeData(with resourceName: String) throws 
+    func write(data: Data, withResourceName resourceName: String) throws -> URL
+    func removeData(for resourceName: String) throws
 }
 
 final class FileStorageManager: FilesStoring {
@@ -20,7 +20,7 @@ final class FileStorageManager: FilesStoring {
          fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! // swiftlint:disable:this force_unwrapping
      }()
     
-    func writeUploadedDataToFile(with data: Data, withResourceName resourceName: String) throws -> URL {
+    func write(data: Data, withResourceName resourceName: String) throws -> URL {
         let url = documentUrl.appendingPathComponent(resourceName)
         
         try data.write(to: url)
@@ -28,7 +28,7 @@ final class FileStorageManager: FilesStoring {
         return url
     }
     
-    func removeData(with resourceName: String) throws {
+    func removeData(for resourceName: String) throws {
         let url = documentUrl.appendingPathComponent(resourceName)
         
         try fileManager.removeItem(at: url)

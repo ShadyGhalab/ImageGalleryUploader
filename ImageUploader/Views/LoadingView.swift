@@ -9,7 +9,7 @@
 import UIKit
 import ReactiveSwift
 
-class LoadingView: UIView {
+final class LoadingView: UIView {
 
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var progressLabel: UILabel!
@@ -25,5 +25,4 @@ class LoadingView: UIView {
     func bindViewModel() {
        progressLabel.reactive.text <~ viewModel.outputs.uploadingProgress
     }
-
 }

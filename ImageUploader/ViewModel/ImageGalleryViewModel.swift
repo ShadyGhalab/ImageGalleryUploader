@@ -20,9 +20,9 @@ protocol ImageGalleryViewInputs {
     func configure(with fileUploader: FilesUploader, fileStorageManager: FilesStoring)
     func configure(sectionItems: SectionItems?, numberOfSections: NumberOfSections?)
     func viewDidLoad()
-    func uploadResource(with data: Data?, name: String?)
     func performBatchUpdatesStarted()
     func performBatchUpdatesCompeleted()
+    func uploadResource(with data: Data?, name: String?)
 }
 
 protocol ImageGalleryViewOutputs {
@@ -32,8 +32,8 @@ protocol ImageGalleryViewOutputs {
     var insertedSection: Signal<NSIndexSet, Never> { get }
     var updatedSection: Signal<NSIndexSet, Never> { get }
     var deletedSection: Signal<NSIndexSet, Never> { get }
-    var reloadData: Signal<(), Never> { get }
     var performBatchUpdates: Signal<(), Never> { get }
+    var reloadData: Signal<(), Never> { get }
     var fetchedResultController: NSFetchedResultsController<Resource> { get }
     var loadingIndicatorStarted: Signal<(), Never> { get }
     var loadingIndicatorStopped: Signal<(), Never> { get }
@@ -85,22 +85,6 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
         
         performBatchUpdates = performBatchUpdatesProperty.signal
         
-        let dataAndNameSignal = Signal.zip(uploadedResourceDataProperty.signal.skipNil(),
-                                           uploadedResourceNameProperty.signal.skipNil())
-
-        dataAndNameSignal.withLatest(from: fileUploaderProperty.signal.skipNil())
-            .observeValues { dataAndName, fileUploader in
-                let data = dataAndName.0
-                let name = dataAndName.1
-                fileUploader.upload(data: data, resourceName: name)
-        }
-        
-        loadingIndicatorStarted = uploadedResourceDataProperty.signal.skipNil()
-            .combineLatest(with: uploadedResourceNameProperty.signal.skipNil())
-            .map { _ in () }
-        
-        loadingIndicatorStopped = didFinishUploadingProperty.signal
-        
         resourceInfoProperty.signal.skipNil()
             .skipRepeats ( == )
             .withLatest(from: uploadedResourceNameProperty.signal.skipNil())
@@ -108,20 +92,36 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
                 Resource.make(id: resourceInfo.id, name: name, createdAt: resourceInfo.createdAt, isUploaded: true)
         }
         
+        let dataAndNameSignal = Signal.zip(uploadedResourceDataProperty.signal.skipNil(),
+                                           uploadedResourceNameProperty.signal.skipNil())
+
+        dataAndNameSignal.withLatest(from: fileUploaderProperty.signal.skipNil())
+            .observeValues { dataAndName, fileUploader in
+                let data = dataAndName.0
+                let name = dataAndName.1
+               
+                fileUploader.upload(data: data, resourceName: name)
+        }
+        
         resourceInfoProperty.signal.skipNil()
             .skipRepeats ( == )
             .combineLatest(with: dataAndNameSignal.signal)
             .combineLatest(with: fileStorageManagerProperty.signal.skipNil())
             .map { ($0.0.1.1, $0.0.1.0, $0.1) }
-            .observeValues { name, data, fileStorageManager in
+            .observeValues { resourceName, data, fileStorageManager in
                 do {
-                    try fileStorageManager.removeData(with: name)
-                    try _ = fileStorageManager.writeUploadedDataToFile(with: data, withResourceName: name)
+                    try fileStorageManager.removeData(for: resourceName)
+                    try _ = fileStorageManager.write(data: data, withResourceName: resourceName)
                 } catch {
                     os_log("Failed to write resource data in the file with name: %{public}@, with error: %{public}@",
-                           log: logger, type: .info, name, error.localizedDescription)
+                           log: logger, type: .info, resourceName, error.localizedDescription)
                 }
         }
+        
+        loadingIndicatorStarted = dataAndNameSignal
+            .map { _ in () }
+        
+        loadingIndicatorStopped = didFinishUploadingProperty.signal
         
         uploadingProgress = uploadingProgressProperty.signal.skipNil()
     }
@@ -252,7 +252,6 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
                                                            managedObjectContext: managedObjectContext,
                                                            sectionNameKeyPath: nil,
                                                            cacheName: nil)
-        
         resultsController.delegate = self
         _fetchedResultsController = resultsController
         
@@ -361,7 +360,9 @@ extension ImageGalleryViewModel: FilesUploaderDelegate {
         uploading(with: progress)
     }
     
-    func uploadFailed(for url: URL?, resumeData: Data?, cancellationReason: UploadCancelReason?, error: Error?) {  }
+    func uploadFailed(for url: URL?, resumeData: Data?, cancellationReason: UploadCancelReason?, error: Error?) {
+        didFinishUploading()
+    }
     
     func backgroundTasksFinished() { }
 }

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D5755ACD22E305E200E0EEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755ACC22E305E200E0EEA4 /* AppDelegate.swift */; };
-		D5755ACF22E305E200E0EEA4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755ACE22E305E200E0EEA4 /* ViewController.swift */; };
 		D5755AD522E305E200E0EEA4 /* ImageUploader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D5755AD322E305E200E0EEA4 /* ImageUploader.xcdatamodeld */; };
 		D5755AD722E305E400E0EEA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5755AD622E305E400E0EEA4 /* Assets.xcassets */; };
 		D5755ADA22E305E400E0EEA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5755AD822E305E400E0EEA4 /* LaunchScreen.storyboard */; };
@@ -80,7 +79,6 @@
 /* Begin PBXFileReference section */
 		D5755AC922E305E200E0EEA4 /* ImageUploader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageUploader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5755ACC22E305E200E0EEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D5755ACE22E305E200E0EEA4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D5755AD422E305E200E0EEA4 /* ImageUploader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageUploader.xcdatamodel; sourceTree = "<group>"; };
 		D5755AD622E305E400E0EEA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D5755AD922E305E400E0EEA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 				D5755B3122E37BAA00E0EEA4 /* Controllers */,
 				D5755B2E22E3283100E0EEA4 /* FileUploader */,
 				D5755ACC22E305E200E0EEA4 /* AppDelegate.swift */,
-				D5755ACE22E305E200E0EEA4 /* ViewController.swift */,
 				D5755AD622E305E400E0EEA4 /* Assets.xcassets */,
 				D5755AD822E305E400E0EEA4 /* LaunchScreen.storyboard */,
 				D5755ADB22E305E400E0EEA4 /* Info.plist */,
@@ -444,7 +441,6 @@
 				D5755B7322E4B59D00E0EEA4 /* UploadedResource.swift in Sources */,
 				D5755B6A22E39B4100E0EEA4 /* Resource+CoreDataClass.swift in Sources */,
 				D5755B4022E37C8B00E0EEA4 /* ImageGalleryCellViewModel.swift in Sources */,
-				D5755ACF22E305E200E0EEA4 /* ViewController.swift in Sources */,
 				D5755B7C22E4FEFF00E0EEA4 /* LoadingViewModel.swift in Sources */,
 				D5755B3E22E37C7A00E0EEA4 /* ImageGalleryDetailsViewModel.swift in Sources */,
 				D5755B4722E37D0E00E0EEA4 /* UITraitCollection+SizeClasses.swift in Sources */,

@@ -17,6 +17,7 @@ private enum Constants {
     static let noOfColumnsForIPhones: CGFloat = 2.0
     static let noOfColumnsForIPad: CGFloat = 4.0
     static let cellHeight: CGFloat = 134
+    static let compressionQuality: CGFloat = 0.55
     static let showImageGalleryDetails = "showImageGalleryDetails"
 }
 
@@ -224,9 +225,10 @@ extension ImageGalleryViewController: UIImagePickerControllerDelegate, UINavigat
         let image = info[.editedImage] as? UIImage
         let fileUrl = info[.imageURL] as? URL
         let resourceName = fileUrl?.lastPathComponent ?? UUID().uuidString
-        let resourceData = image?.jpegData(compressionQuality: 0.5)
+        let resourceData = image?.jpegData(compressionQuality: Constants.compressionQuality)
         
         viewModel.inputs.uploadResource(with: resourceData, name: resourceName)
+       
         dismiss(animated: true, completion: nil)
     }
     

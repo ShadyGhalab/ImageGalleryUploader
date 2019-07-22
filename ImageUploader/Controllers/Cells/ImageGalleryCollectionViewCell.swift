@@ -18,6 +18,7 @@ private enum Constants {
 final class ImageGalleryCollectionViewCell: UICollectionViewCell {
    
     @IBOutlet weak var imageView: UIImageView!
+   
     let viewModel: ImageGalleryCellViewProtocol = ImageGalleryCellViewModel()
     
     override func awakeFromNib() {
