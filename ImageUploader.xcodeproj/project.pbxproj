@@ -12,6 +12,7 @@
 		D568169B22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D568169A22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift */; };
 		D568169D22E7543700B2FB79 /* ImageGalleryDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D568169C22E7543700B2FB79 /* ImageGalleryDetailsViewModelTests.swift */; };
 		D56816A122E7566600B2FB79 /* ImageGalleryDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56816A022E7566600B2FB79 /* ImageGalleryDataSourceTests.swift */; };
+		D56816A422E761DF00B2FB79 /* ImageGalleryViewControllerSnapshotsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56816A322E761DF00B2FB79 /* ImageGalleryViewControllerSnapshotsTests.swift */; };
 		D5755ACD22E305E200E0EEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755ACC22E305E200E0EEA4 /* AppDelegate.swift */; };
 		D5755AD522E305E200E0EEA4 /* ImageUploader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D5755AD322E305E200E0EEA4 /* ImageUploader.xcdatamodeld */; };
 		D5755AD722E305E400E0EEA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5755AD622E305E400E0EEA4 /* Assets.xcassets */; };
@@ -90,6 +91,7 @@
 		D568169A22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryCellViewModelTests.swift; sourceTree = "<group>"; };
 		D568169C22E7543700B2FB79 /* ImageGalleryDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		D56816A022E7566600B2FB79 /* ImageGalleryDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryDataSourceTests.swift; sourceTree = "<group>"; };
+		D56816A322E761DF00B2FB79 /* ImageGalleryViewControllerSnapshotsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewControllerSnapshotsTests.swift; sourceTree = "<group>"; };
 		D5755AC922E305E200E0EEA4 /* ImageUploader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageUploader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5755ACC22E305E200E0EEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5755AD422E305E200E0EEA4 /* ImageUploader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageUploader.xcdatamodel; sourceTree = "<group>"; };
@@ -167,6 +169,14 @@
 			path = DataSource;
 			sourceTree = "<group>";
 		};
+		D56816A222E761B900B2FB79 /* Snapshots */ = {
+			isa = PBXGroup;
+			children = (
+				D56816A322E761DF00B2FB79 /* ImageGalleryViewControllerSnapshotsTests.swift */,
+			);
+			path = Snapshots;
+			sourceTree = "<group>";
+		};
 		D5755AC022E305E200E0EEA4 = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +222,7 @@
 		D5755AE322E305E400E0EEA4 /* ImageUploaderTests */ = {
 			isa = PBXGroup;
 			children = (
+				D56816A222E761B900B2FB79 /* Snapshots */,
 				D568169F22E7565800B2FB79 /* DataSource */,
 				D568169E22E7563F00B2FB79 /* ViewModels */,
 				D5755BA722E6402700E0EEA4 /* Helpers */,
@@ -513,6 +524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D568169D22E7543700B2FB79 /* ImageGalleryDetailsViewModelTests.swift in Sources */,
+				D56816A422E761DF00B2FB79 /* ImageGalleryViewControllerSnapshotsTests.swift in Sources */,
 				D5755BA422E63FFF00E0EEA4 /* ImageGalleryViewModelTests.swift in Sources */,
 				D5755BAE22E6405500E0EEA4 /* Event+Extensions.swift in Sources */,
 				D568169B22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift in Sources */,
