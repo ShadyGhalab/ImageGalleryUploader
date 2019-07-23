@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D568169722E7235F00B2FB79 /* LoadingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D568169622E7235F00B2FB79 /* LoadingViewModelTests.swift */; };
+		D568169922E7264200B2FB79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D568169822E7264200B2FB79 /* Localizable.strings */; };
 		D5755ACD22E305E200E0EEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755ACC22E305E200E0EEA4 /* AppDelegate.swift */; };
 		D5755AD522E305E200E0EEA4 /* ImageUploader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D5755AD322E305E200E0EEA4 /* ImageUploader.xcdatamodeld */; };
 		D5755AD722E305E400E0EEA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5755AD622E305E400E0EEA4 /* Assets.xcassets */; };
@@ -82,6 +83,7 @@
 
 /* Begin PBXFileReference section */
 		D568169622E7235F00B2FB79 /* LoadingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModelTests.swift; sourceTree = "<group>"; };
+		D568169822E7264200B2FB79 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		D5755AC922E305E200E0EEA4 /* ImageUploader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageUploader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5755ACC22E305E200E0EEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5755AD422E305E200E0EEA4 /* ImageUploader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageUploader.xcdatamodel; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				D5755AD822E305E400E0EEA4 /* LaunchScreen.storyboard */,
 				D5755ADB22E305E400E0EEA4 /* Info.plist */,
 				D5755AD322E305E200E0EEA4 /* ImageUploader.xcdatamodeld */,
+				D568169822E7264200B2FB79 /* Localizable.strings */,
 			);
 			path = ImageUploader;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5755ADA22E305E400E0EEA4 /* LaunchScreen.storyboard in Resources */,
+				D568169922E7264200B2FB79 /* Localizable.strings in Resources */,
 				D5755B4E22E37D6A00E0EEA4 /* ImageGallery.storyboard in Resources */,
 				D5755AD722E305E400E0EEA4 /* Assets.xcassets in Resources */,
 			);
