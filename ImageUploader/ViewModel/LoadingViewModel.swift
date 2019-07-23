@@ -33,7 +33,8 @@ struct LoadingViewModel: LoadingViewInputs, LoadingViewOutputs, LoadingViewProto
             .skipNil()
             .map { progress in
                 let progressPercentage = progress * 100.0
-                return String(format: "mobile.loading.progress".localized, Int(progressPercentage))
+               
+                return String(format: "imageGallery.loading.progress".localized, Int(progressPercentage))
         }
     }
     

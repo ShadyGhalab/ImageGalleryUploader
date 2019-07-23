@@ -29,10 +29,10 @@ protocol ImageGalleryViewOutputs {
     var insertedIndexPaths: Signal<[IndexPath], Never> { get }   
     var performBatchUpdates: Signal<(), Never> { get }
     var reloadData: Signal<(), Never> { get }
-    var fetchedResultController: NSFetchedResultsController<Resource> { get }
     var loadingIndicatorStarted: Signal<(), Never> { get }
     var loadingIndicatorStopped: Signal<(), Never> { get }
     var uploadingProgress: Signal<Float, Never> { get }
+    var fetchedResultController: NSFetchedResultsController<Resource> { get }
 }
 
 protocol ImageGalleryViewProtocol: Any {
@@ -107,7 +107,7 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
     func configure(with fileUploader: FilesUploading, fileStorageManager: FilesStoring) {
         var filesUploading = fileUploader
         filesUploading.delegate = self
-        fileUploaderProperty.value = filesUploading
+        fileUploaderProperty.value = fileUploader
         fileStorageManagerProperty.value = fileStorageManager
     }
     

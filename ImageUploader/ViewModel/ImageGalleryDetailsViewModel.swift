@@ -40,8 +40,8 @@ struct ImageGalleryDetailsViewModel: ImageGalleryDetailsViewInputs, ImageGallery
             .skipNil()
             .map { name -> UIImage? in
                 do {
-                    let file = documentUrl.appendingPathComponent(name)
-                    let data = try Data(contentsOf: file)
+                    let fileUrl = documentUrl.appendingPathComponent(name)
+                    let data = try Data(contentsOf: fileUrl)
                    
                     return UIImage(data: data)
                 } catch {

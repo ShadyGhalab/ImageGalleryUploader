@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol FilesStoring {
+protocol FilesStoring: AnyObject {
     func write(data: Data, withResourceName resourceName: String) throws -> URL
     func removeData(for resourceName: String) throws
 }

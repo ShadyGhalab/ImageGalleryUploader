@@ -112,7 +112,7 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
         }
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
+        
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
             self.openCamera()
         }))
@@ -121,9 +121,7 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
             self.openPhotoLibrary()
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-            print("User click Cancel button")
-        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         if let presenter = alert.popoverPresentationController,
             let bounds = addBarButtonItem.view?.bounds {
