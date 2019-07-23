@@ -15,28 +15,33 @@ class ImageGalleryDetailsViewModelTests: XCTestCase {
     private let viewModel: ImageGalleryDetailsViewProtocol = ImageGalleryDetailsViewModel()
     private let image: TestObserver<UIImage, Never> = TestObserver()
     private let fileStoringManager = FileStorageManager()
-
+    private let resourceName = "Cat"
+    private lazy var resource = Resource.make(id: UUID().uuidString,
+                                 name: resourceName,
+                                 createdAt: "2019-07-23T11:33:33Z",
+                                 isUploaded: true)
     override func setUp() {
         viewModel.outputs.image.observe(image.observer)
     }
     
     func testLoadingImage() {
-        let resourceName = "Cat"
         writeResourceToFile(withResourceName: resourceName)
-        
-        let resource = Resource.make(id: UUID().uuidString,
-                                     name: resourceName,
-                                     createdAt: "2019-07-23T11:33:33Z",
-                                     isUploaded: true)
         
         viewModel.inputs.configure(with: resource)
         viewModel.inputs.viewDidLoad()
         
         image.assertDidEmitValue("Image has been loaded")
-        
-        removeResource(withResourceName: resourceName)
     }
     
+    override func tearDown() {
+        removeResource(withResourceName: resourceName)
+        delete(resource: resource)
+        
+        super.tearDown()
+    }
+}
+
+extension ImageGalleryDetailsViewModelTests {
     private func writeResourceToFile(withResourceName name: String)  {
         let testImage = UIImage(color: .blue)!
         do {
@@ -52,5 +57,10 @@ class ImageGalleryDetailsViewModelTests: XCTestCase {
         } catch  {
             image.assertDidFail(error.localizedDescription)
         }
+    }
+    
+    private func delete(resource: Resource)  {
+        AppDelegate.shared.persistentContainer.viewContext.delete(resource)
+        AppDelegate.shared.saveContext()
     }
 }
