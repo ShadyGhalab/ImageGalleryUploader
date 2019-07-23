@@ -38,7 +38,6 @@ struct LoadingViewModel: LoadingViewInputs, LoadingViewOutputs, LoadingViewProto
     }
     
     private let uploadingProgressProperty = MutableProperty<Float?>(nil)
-    private let uriProperty = MutableProperty<String>("")
     func configure(with progress: Float) {
         uploadingProgressProperty.value = progress
     }
