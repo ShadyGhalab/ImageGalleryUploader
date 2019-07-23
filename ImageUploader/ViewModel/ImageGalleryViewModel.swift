@@ -3,7 +3,7 @@
 //  Mobile
 //
 //  Created by Shady Mustafa on 16.07.19.
-//  Copyright © 2019 Ebay. All rights reserved.
+//  Copyright © 2019 Spark Network. All rights reserved.
 //
 
 import Foundation
@@ -17,7 +17,7 @@ typealias SectionItems = ((IndexPath?) -> Int?)
 typealias NumberOfSections = (() -> Int?)
 
 protocol ImageGalleryViewInputs {
-    func configure(with fileUploader: FilesUploader, fileStorageManager: FilesStoring)
+    func configure(with fileUploader: FilesUploading, fileStorageManager: FilesStoring)
     func configure(sectionItems: SectionItems?, numberOfSections: NumberOfSections?)
     func viewDidLoad()
     func performBatchUpdatesStarted()
@@ -77,7 +77,7 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
                 let data = dataAndName.0
                 let name = dataAndName.1
                 
-                fileUploader.upload(data: data, resourceName: name)
+                fileUploader.upload(data: data, resourceName: name, resourceType: .image)
             }).map { _ in () }
         
         let willStoredResouseDataInFile = resourceInfoProperty.signal.skipNil()
@@ -102,11 +102,12 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
         uploadingProgress = uploadingProgressProperty.signal.skipNil()
     }
     
-    private let fileUploaderProperty = MutableProperty<FilesUploader?>(nil)
+    private let fileUploaderProperty = MutableProperty<FilesUploading?>(nil)
     private let fileStorageManagerProperty = MutableProperty<FilesStoring?>(nil)
-    func configure(with fileUploader: FilesUploader, fileStorageManager: FilesStoring) {
-        fileUploader.delegate = self
-        fileUploaderProperty.value = fileUploader
+    func configure(with fileUploader: FilesUploading, fileStorageManager: FilesStoring) {
+        var filesUploading = fileUploader
+        filesUploading.delegate = self
+        fileUploaderProperty.value = filesUploading
         fileStorageManagerProperty.value = fileStorageManager
     }
     
