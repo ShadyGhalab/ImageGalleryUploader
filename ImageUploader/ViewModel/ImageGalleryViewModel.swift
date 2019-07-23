@@ -66,7 +66,7 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
             .withLatest(from: uploadedResourceNameProperty.signal.skipNil())
         
         _ = willInsertResource.observeValues {  resourceInfo, name in
-            Resource.make(id: resourceInfo.id, name: name, createdAt: resourceInfo.createdAt, isUploaded: true)
+            _ = Resource.make(id: resourceInfo.id, name: name, createdAt: resourceInfo.createdAt, isUploaded: true)
         }
         
         let dataAndNameSignal = Signal.zip(uploadedResourceDataProperty.signal.skipNil(),

@@ -73,7 +73,7 @@ excluded: # paths to ignore during linting. overridden by `included`.
   - Carthage
   - Pods
   - Submodules
-  - MobileTests
+  - ImageUploaderTests
   - .git
  
 
