@@ -9,7 +9,6 @@
 import Foundation
 
 import XCTest
-import ReactiveSwift
 
 @testable import ImageUploader
 
