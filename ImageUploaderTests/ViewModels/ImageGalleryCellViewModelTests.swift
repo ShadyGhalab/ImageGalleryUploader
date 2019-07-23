@@ -40,8 +40,8 @@ class ImageGalleryCellViewModelTests: XCTestCase {
     }
 }
 
-extension ImageGalleryCellViewModelTests {
-    private func writeResourceToFile(withResourceName name: String)  {
+private extension ImageGalleryCellViewModelTests {
+     func writeResourceToFile(withResourceName name: String)  {
         let testImage = UIImage(color: .blue)!
         do {
             try _ = fileStoringManager.write(data: testImage.jpegData(compressionQuality: 1)!, withResourceName: name)
@@ -50,7 +50,7 @@ extension ImageGalleryCellViewModelTests {
         }
     }
     
-    private func removeResource(withResourceName name: String)  {
+    func removeResource(withResourceName name: String)  {
         do {
             try _ = fileStoringManager.removeData(for: name)
         } catch  {
@@ -58,7 +58,7 @@ extension ImageGalleryCellViewModelTests {
         }
     }
     
-    private func delete(resource: Resource)  {
+    func delete(resource: Resource)  {
         AppDelegate.shared.persistentContainer.viewContext.delete(resource)
         AppDelegate.shared.saveContext()
     }

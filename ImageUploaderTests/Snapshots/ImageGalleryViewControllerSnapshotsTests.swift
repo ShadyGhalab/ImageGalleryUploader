@@ -18,16 +18,15 @@ class ImageGalleryViewControllerSnapshots: FBSnapshotTestCase {
     private var viewController: ImageGalleryViewController!
     private let fileStoringManager = FileStorageManager()
     private let fileUploaderMock = FileUploaderMock()
-
     private let resourceName = "Cat"
   
-    var window: UIWindow = {
+    private var window: UIWindow = {
         return UIWindow(frame: UIScreen.main.bounds)
     }()
     
     override func setUp() {
         super.setUp()
-        
+
         setupView()
     }
     
@@ -42,7 +41,7 @@ class ImageGalleryViewControllerSnapshots: FBSnapshotTestCase {
     
     func testImageGalleryViewControllerWithEmptyView() {
         
-        writeResourceToFile(withResourceName: resourceName)
+        fileStoringManager.writeResourceToFile(withResourceName: resourceName)
         
         viewController.viewModel.inputs.configure(with: fileUploaderMock, fileStorageManager: FileStorageManager())
         
@@ -53,10 +52,10 @@ class ImageGalleryViewControllerSnapshots: FBSnapshotTestCase {
     
     func testImageGalleryViewControllerWithImages() {
         
-        _ = Resource.make(id: UUID().uuidString, name: "Cat", createdAt: "2019-07-23T11:33:33Z", isUploaded: true)
-        _ = Resource.make(id: UUID().uuidString, name: "Cat", createdAt: "2019-07-23T11:33:33Z", isUploaded: true)
+        _ = Resource.make(id: UUID().uuidString, name: resourceName, createdAt: "2019-07-23T11:33:33Z", isUploaded: true)
+        _ = Resource.make(id: UUID().uuidString, name: resourceName, createdAt: "2019-07-23T11:33:33Z", isUploaded: true)
         
-        writeResourceToFile(withResourceName: resourceName)
+        fileStoringManager.writeResourceToFile(withResourceName: resourceName)
         
         viewController.viewModel.inputs.configure(with: fileUploaderMock, fileStorageManager: FileStorageManager())
 
@@ -66,24 +65,9 @@ class ImageGalleryViewControllerSnapshots: FBSnapshotTestCase {
     }
     
     override func tearDown() {
-        removeResource(withResourceName: resourceName)
+        fileStoringManager.removeResource(withResourceName: resourceName)
         
         super.tearDown()
-    }
-}
-
-extension ImageGalleryViewControllerSnapshots {
-    private func writeResourceToFile(withResourceName name: String)  {
-        let testImage = UIImage(color: .blue)!
-        do {
-            try _ = fileStoringManager.write(data: testImage.jpegData(compressionQuality: 1)!, withResourceName: name)
-        } catch  { }
-    }
-    
-    private func removeResource(withResourceName name: String)  {
-        do {
-            try _ = fileStoringManager.removeData(for: name)
-        } catch  { }
     }
 }
 
