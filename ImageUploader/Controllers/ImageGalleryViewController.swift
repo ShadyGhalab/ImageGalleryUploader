@@ -41,7 +41,7 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
         return self.collectionView.numberOfItems(inSection: section)
     }
     
-    lazy var numberOfSections: NumberOfSections = { 
+    private lazy var numberOfSections: NumberOfSections = { 
         self.collectionView.numberOfSections
     }
     
@@ -63,36 +63,6 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
             .observeValues { [weak self] in
                 self?.collectionView.insertItems(at: $0)
                 self?.scrollCollectionViewToBottom()
-        }
-        
-        viewModel.outputs.updatedIndexPaths
-            .observe(on: UIScheduler())
-            .observeValues { [weak self] in
-                self?.collectionView.reloadItems(at: $0)
-        }
-        
-        viewModel.outputs.updatedIndexPaths
-            .observe(on: UIScheduler())
-            .observeValues { [weak self] in
-                self?.collectionView.deleteItems(at: $0)
-        }
-        
-        viewModel.outputs.insertedSection
-            .observe(on: UIScheduler())
-            .observeValues { [weak self] in
-                self?.collectionView.insertSections($0 as IndexSet)
-        }
-        
-        viewModel.outputs.updatedSection
-            .observe(on: UIScheduler())
-            .observeValues { [weak self] in
-                self?.collectionView.reloadSections($0 as IndexSet)
-        }
-        
-        viewModel.outputs.deletedSection
-            .observe(on: UIScheduler())
-            .observeValues { [weak self] in
-                self?.collectionView.deleteSections($0 as IndexSet)
         }
         
         viewModel.outputs.performBatchUpdates

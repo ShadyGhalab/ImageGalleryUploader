@@ -26,12 +26,7 @@ protocol ImageGalleryViewInputs {
 }
 
 protocol ImageGalleryViewOutputs {
-    var insertedIndexPaths: Signal<[IndexPath], Never> { get }
-    var updatedIndexPaths: Signal<[IndexPath], Never> { get }
-    var deletedIndexPaths: Signal<[IndexPath], Never> { get }
-    var insertedSection: Signal<NSIndexSet, Never> { get }
-    var updatedSection: Signal<NSIndexSet, Never> { get }
-    var deletedSection: Signal<NSIndexSet, Never> { get }
+    var insertedIndexPaths: Signal<[IndexPath], Never> { get }   
     var performBatchUpdates: Signal<(), Never> { get }
     var reloadData: Signal<(), Never> { get }
     var fetchedResultController: NSFetchedResultsController<Resource> { get }
@@ -55,59 +50,43 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
     private var shouldReloadCollectionView: Bool = false
     private var sectionItems: SectionItems?
     private var numberOfSections: NumberOfSections?
-    
+
     override init() {
+        
         insertedIndexPaths = viewDidLoadProperty.signal
             .combineLatest(with: insertedIndexPathProperty.signal.skipNil())
             .map { [$0.1] }
-        
-        updatedIndexPaths = viewDidLoadProperty.signal
-            .combineLatest(with: updatedIndexPathProperty.signal.skipNil())
-            .map { [$0.1] }
-        
-        deletedIndexPaths = viewDidLoadProperty.signal
-            .combineLatest(with: updatedIndexPathProperty.signal.skipNil())
-            .map { [$0.1] }
-        
-        insertedSection = viewDidLoadProperty.signal
-            .combineLatest(with: insertedSectionProperty.signal.skipNil())
-            .map { NSIndexSet(index: $0.1) }
-        
-        updatedSection = viewDidLoadProperty.signal
-            .combineLatest(with: updatedSectionProperty.signal.skipNil())
-            .map { NSIndexSet(index: $0.1) }
-        
-        deletedSection = viewDidLoadProperty.signal
-            .combineLatest(with: deletedSectionProperty.signal.skipNil())
-            .map { NSIndexSet(index: $0.1) }
-        
+       
         reloadData = reloadDataProperty.signal
         
         performBatchUpdates = performBatchUpdatesProperty.signal
         
-        resourceInfoProperty.signal.skipNil()
+        let willInsertResource = resourceInfoProperty.signal.skipNil()
             .skipRepeats ( == )
             .withLatest(from: uploadedResourceNameProperty.signal.skipNil())
-            .observeValues { resourceInfo, name in
-                Resource.make(id: resourceInfo.id, name: name, createdAt: resourceInfo.createdAt, isUploaded: true)
+        
+        _ = willInsertResource.observeValues {  resourceInfo, name in
+            Resource.make(id: resourceInfo.id, name: name, createdAt: resourceInfo.createdAt, isUploaded: true)
         }
         
         let dataAndNameSignal = Signal.zip(uploadedResourceDataProperty.signal.skipNil(),
                                            uploadedResourceNameProperty.signal.skipNil())
-
-        dataAndNameSignal.withLatest(from: fileUploaderProperty.signal.skipNil())
-            .observeValues { dataAndName, fileUploader in
+        
+        loadingIndicatorStarted = dataAndNameSignal.withLatest(from: fileUploaderProperty.signal.skipNil())
+            .on(value: { dataAndName, fileUploader in
                 let data = dataAndName.0
                 let name = dataAndName.1
-               
+                
                 fileUploader.upload(data: data, resourceName: name)
-        }
+            }).map { _ in () }
         
-        resourceInfoProperty.signal.skipNil()
+        let willStoredResouseDataInFile = resourceInfoProperty.signal.skipNil()
             .skipRepeats ( == )
             .combineLatest(with: dataAndNameSignal.signal)
             .combineLatest(with: fileStorageManagerProperty.signal.skipNil())
             .map { ($0.0.1.1, $0.0.1.0, $0.1) }
+        
+        _ = willStoredResouseDataInFile
             .observeValues { resourceName, data, fileStorageManager in
                 do {
                     try fileStorageManager.removeData(for: resourceName)
@@ -117,9 +96,6 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
                            log: logger, type: .info, resourceName, error.localizedDescription)
                 }
         }
-        
-        loadingIndicatorStarted = dataAndNameSignal
-            .map { _ in () }
         
         loadingIndicatorStopped = didFinishUploadingProperty.signal
         
@@ -155,31 +131,6 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
     private let insertedIndexPathProperty = MutableProperty<IndexPath?>(nil)
     private func willInsertItem(at indexPaths: IndexPath?) {
         insertedIndexPathProperty.value = indexPaths
-    }
-    
-    private let updatedIndexPathProperty = MutableProperty<IndexPath?>(nil)
-    private func willUpdateItem(at indexPath: IndexPath?) {
-        updatedIndexPathProperty.value = indexPath
-    }
-    
-    private let deletedIndexPathProperty = MutableProperty<IndexPath?>(nil)
-    private func willWillItem(at indexPath: IndexPath?) {
-        deletedIndexPathProperty.value = indexPath
-    }
-    
-    private let insertedSectionProperty = MutableProperty<Int?>(nil)
-    private func willInsertSection(atSectionIndex sectionIndex: Int) {
-        insertedSectionProperty.value = sectionIndex
-    }
-    
-    private let updatedSectionProperty = MutableProperty<Int?>(nil)
-    private func willUpdateSection(atSectionIndex sectionIndex: Int) {
-        updatedSectionProperty.value = sectionIndex
-    }
-    
-    private let deletedSectionProperty = MutableProperty<Int?>(nil)
-    private func willDeleteSection(atSectionIndex sectionIndex: Int) {
-        deletedSectionProperty.value = sectionIndex
     }
     
     private let reloadDataProperty = MutableProperty<()>(())
@@ -225,11 +176,6 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
     }
     
     let insertedIndexPaths: Signal<[IndexPath], Never>
-    let updatedIndexPaths: Signal<[IndexPath], Never>
-    let deletedIndexPaths: Signal<[IndexPath], Never>
-    let insertedSection: Signal<NSIndexSet, Never>
-    let updatedSection: Signal<NSIndexSet, Never>
-    let deletedSection: Signal<NSIndexSet, Never>
     let reloadData: Signal<(), Never>
     let performBatchUpdates: Signal<(), Never>
     let loadingIndicatorStarted: Signal<(), Never>
@@ -269,10 +215,6 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
         switch type {
         case .insert:
             insertItem(at: newIndexPath)
-        case .update:
-            updateItem(at: indexPath)
-        case .delete:
-            deleteItem(at: indexPath)
         default:
             break
         }
@@ -291,53 +233,6 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
             }
         } else {
             shouldReloadCollectionView = true
-        }
-    }
-    
-    private func updateItem(at indexPath: IndexPath?) {
-        blockOperations.append(
-            BlockOperation(block: { [weak self] in
-                self?.willUpdateItem(at: indexPath)
-            })
-        )
-    }
-    
-    private func deleteItem(at indexPath: IndexPath?) {
-        if let numberOfItems = sectionItems?(indexPath), numberOfItems == 1 {
-            shouldReloadCollectionView = true
-        } else {
-            blockOperations.append(
-                BlockOperation(block: { [weak self] in
-                    self?.willUpdateItem(at: indexPath)
-                })
-            )
-        }
-    }
-    
-    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
-                           didChange sectionInfo: NSFetchedResultsSectionInfo,
-                           atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        switch type {
-        case .insert:
-            blockOperations.append(
-                BlockOperation(block: { [weak self] in
-                    self?.willInsertSection(atSectionIndex: sectionIndex)
-                })
-            )
-        case .update:
-            blockOperations.append(
-                BlockOperation(block: { [weak self] in
-                    self?.willUpdateSection(atSectionIndex: sectionIndex)
-                })
-            )
-        case .delete:
-            blockOperations.append(
-                BlockOperation(block: { [weak self] in
-                    self?.willDeleteSection(atSectionIndex: sectionIndex)
-                })
-            )
-        default:
-            break
         }
     }
     
