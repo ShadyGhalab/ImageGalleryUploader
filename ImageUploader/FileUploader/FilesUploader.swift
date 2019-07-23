@@ -18,7 +18,7 @@ fileprivate extension URLSessionTask {
     }
 }
 
-enum ResourceType: String {
+public enum ResourceType: String {
     case image
     case video
 }
@@ -55,7 +55,12 @@ public protocol FilesUploaderDelegate: class {
     func backgroundTasksFinished()
 }
 
-final class FilesUploader: NSObject {
+public protocol FilesUploading {
+     var delegate: FilesUploaderDelegate? { set get }
+     func upload(data: Data, resourceName: String, resourceType: ResourceType)
+}
+
+class FilesUploader: NSObject, FilesUploading {
     private var uploadSession: URLSession!
     private var cloudName: String!
     private let clouldPresentParameters = ["upload_preset": "zl2tzkdx"]
