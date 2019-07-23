@@ -19,13 +19,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else { return true }
         
-         let fileUploader = FilesUploader(sessionIdentifier: UUID().uuidString, cloudName: Constants.cloudName)
-         let navigationController = window?.rootViewController as? UINavigationController
-         let imageGalleryViewController = navigationController?.topViewController as? ImageGalleryViewController
+        self.window = UIWindow(frame: UIScreen.main.bounds)
         
-         imageGalleryViewController?.viewModel.inputs.configure(with: fileUploader, fileStorageManager: FileStorageManager())
-                
+        let imageGalleryNavigationController = ImageGalleryNavigationController.make()
+        let imageGalleryViewController = imageGalleryNavigationController.topViewController as? ImageGalleryViewController
+       
+        let fileUploader = FilesUploader(sessionIdentifier: UUID().uuidString, cloudName: Constants.cloudName)
+        imageGalleryViewController?.viewModel.inputs.configure(with: fileUploader, fileStorageManager: FileStorageManager())
+        
+        self.window?.rootViewController = imageGalleryNavigationController
+        self.window?.makeKeyAndVisible()
         return true
     }
     
@@ -49,6 +54,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ImageUploader")
+        
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+            let description = NSPersistentStoreDescription()
+            description.type = NSInMemoryStoreType
+            container.persistentStoreDescriptions = [description]
+        }
+        
         container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
