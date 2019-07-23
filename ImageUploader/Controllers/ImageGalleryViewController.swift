@@ -110,18 +110,18 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
         guard let addBarButtonItem = sender as? UIBarButtonItem else {
             return
         }
-        
+
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "imageGallery.alert.Camera".localized, style: .default, handler: { _ in
             self.openCamera()
         }))
         
-        alert.addAction(UIAlertAction(title: "Photo", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "imageGallery.alert.Photo".localized, style: .default, handler: { _ in
             self.openPhotoLibrary()
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "imageGallery.alert.Cancel".localized, style: .cancel))
         
         if let presenter = alert.popoverPresentationController,
             let bounds = addBarButtonItem.view?.bounds {

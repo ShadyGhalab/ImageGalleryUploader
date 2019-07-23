@@ -6,4 +6,7 @@
   Copyright © 2019 Spark Network. All rights reserved.
 */
 
-"mobile.loading.progress" = "Uploading %d%%";
+"imageGallery.loading.progress" = "Uploading %d%%";
+"imageGallery.alert.Camera" = "Camera";
+"imageGallery.alert.Photo" = "Photo";
+"imageGallery.alert.Cancel" = "Cancel";
