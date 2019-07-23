@@ -64,6 +64,12 @@ class ImageGalleryViewControllerSnapshots: FBSnapshotTestCase {
         FBSnapshotVerifyView(imageGalleryNavigationController.view)
     }
     
+    func testImageGalleryViewControllerLoadingView() {
+        viewController.navigationItem.titleView?.isHidden = false
+        
+        FBSnapshotVerifyView(imageGalleryNavigationController.view)
+    }
+    
     override func tearDown() {
         fileStoringManager.removeResource(withResourceName: resourceName)
         
