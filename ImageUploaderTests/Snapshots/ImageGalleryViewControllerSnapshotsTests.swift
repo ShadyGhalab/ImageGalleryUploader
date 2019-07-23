@@ -20,14 +20,7 @@ class ImageGalleryViewControllerSnapshots: FBSnapshotTestCase {
     private let fileUploaderMock = FileUploaderMock()
 
     private let resourceName = "Cat"
-    private let resource1 = Resource.make(id: UUID().uuidString,
-                                  name: "Cat",
-                                  createdAt: "2019-07-23T11:33:33Z",
-                                  isUploaded: true)
-    private let resource2 = Resource.make(id: UUID().uuidString,
-                                  name: "Cat",
-                                  createdAt: "2019-07-23T11:33:33Z",
-                                  isUploaded: true)
+  
     var window: UIWindow = {
         return UIWindow(frame: UIScreen.main.bounds)
     }()
@@ -36,7 +29,6 @@ class ImageGalleryViewControllerSnapshots: FBSnapshotTestCase {
         super.setUp()
         
         setupView()
-        
     }
     
     func setupView() {
@@ -48,7 +40,21 @@ class ImageGalleryViewControllerSnapshots: FBSnapshotTestCase {
         window.makeKeyAndVisible()
     }
     
+    func testImageGalleryViewControllerWithEmptyView() {
+        
+        writeResourceToFile(withResourceName: resourceName)
+        
+        viewController.viewModel.inputs.configure(with: fileUploaderMock, fileStorageManager: FileStorageManager())
+        
+        viewController.loadViewIfNeeded()
+        
+        FBSnapshotVerifyView(imageGalleryNavigationController.view)
+    }
+    
     func testImageGalleryViewControllerWithImages() {
+        
+        _ = Resource.make(id: UUID().uuidString, name: "Cat", createdAt: "2019-07-23T11:33:33Z", isUploaded: true)
+        _ = Resource.make(id: UUID().uuidString, name: "Cat", createdAt: "2019-07-23T11:33:33Z", isUploaded: true)
         
         writeResourceToFile(withResourceName: resourceName)
         
