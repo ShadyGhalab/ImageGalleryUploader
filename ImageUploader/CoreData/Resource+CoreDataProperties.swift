@@ -30,7 +30,7 @@ extension Resource {
     @NSManaged public var isUploaded: Bool
     @NSManaged public var createdAt: NSDate?
 
-    static func make(id: String, name: String, createdAt: String, isUploaded: Bool) {
+    static func make(id: String, name: String, createdAt: String, isUploaded: Bool) -> Resource {
         let appDelegate = AppDelegate.shared
         
         let resource = Resource(context: appDelegate.persistentContainer.viewContext)
@@ -40,5 +40,7 @@ extension Resource {
         resource.name = name
         
         appDelegate.saveContext()
+        
+        return resource
     }
 }

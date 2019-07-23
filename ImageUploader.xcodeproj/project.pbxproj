@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D568169722E7235F00B2FB79 /* LoadingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D568169622E7235F00B2FB79 /* LoadingViewModelTests.swift */; };
 		D568169922E7264200B2FB79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D568169822E7264200B2FB79 /* Localizable.strings */; };
+		D568169B22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D568169A22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift */; };
 		D5755ACD22E305E200E0EEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755ACC22E305E200E0EEA4 /* AppDelegate.swift */; };
 		D5755AD522E305E200E0EEA4 /* ImageUploader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D5755AD322E305E200E0EEA4 /* ImageUploader.xcdatamodeld */; };
 		D5755AD722E305E400E0EEA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5755AD622E305E400E0EEA4 /* Assets.xcassets */; };
@@ -84,6 +85,7 @@
 /* Begin PBXFileReference section */
 		D568169622E7235F00B2FB79 /* LoadingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModelTests.swift; sourceTree = "<group>"; };
 		D568169822E7264200B2FB79 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		D568169A22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryCellViewModelTests.swift; sourceTree = "<group>"; };
 		D5755AC922E305E200E0EEA4 /* ImageUploader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageUploader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5755ACC22E305E200E0EEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5755AD422E305E200E0EEA4 /* ImageUploader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageUploader.xcdatamodel; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			children = (
 				D568169622E7235F00B2FB79 /* LoadingViewModelTests.swift */,
 				D5755BA322E63FFF00E0EEA4 /* ImageGalleryViewModelTests.swift */,
+				D568169A22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift */,
 				D5755BA722E6402700E0EEA4 /* Helpers */,
 				D5755AE622E305E400E0EEA4 /* Info.plist */,
 			);
@@ -489,6 +492,7 @@
 			files = (
 				D5755BA422E63FFF00E0EEA4 /* ImageGalleryViewModelTests.swift in Sources */,
 				D5755BAE22E6405500E0EEA4 /* Event+Extensions.swift in Sources */,
+				D568169B22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift in Sources */,
 				D5755BAF22E6405500E0EEA4 /* TestObserver.swift in Sources */,
 				D568169722E7235F00B2FB79 /* LoadingViewModelTests.swift in Sources */,
 			);

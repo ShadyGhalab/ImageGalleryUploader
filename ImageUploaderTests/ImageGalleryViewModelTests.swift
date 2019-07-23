@@ -63,7 +63,7 @@ class ImageGalleryViewModelTests: XCTestCase {
             self.viewModel.inputs.performBatchUpdatesCompeleted()
 
             self.insertedIndexPaths.assertValueCount(1)
-            self.insertedIndexPaths.assertValue([IndexPath(item: 0, section: 0)])
+            self.insertedIndexPaths.assertValue([IndexPath(item: 1, section: 0)])
 
             fileUploadExpectation.fulfill()
         }
@@ -172,7 +172,7 @@ class ImageGalleryViewModelTests: XCTestCase {
     }
 }
 
-fileprivate extension UIImage {
+extension UIImage {
     convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
         let rect = CGRect(origin: .zero, size: size)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
