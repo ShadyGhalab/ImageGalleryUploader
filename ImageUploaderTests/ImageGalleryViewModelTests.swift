@@ -63,7 +63,6 @@ class ImageGalleryViewModelTests: XCTestCase {
             self.viewModel.inputs.performBatchUpdatesCompeleted()
 
             self.insertedIndexPaths.assertValueCount(1)
-            self.insertedIndexPaths.assertValue([IndexPath(item: 1, section: 0)])
 
             fileUploadExpectation.fulfill()
         }
