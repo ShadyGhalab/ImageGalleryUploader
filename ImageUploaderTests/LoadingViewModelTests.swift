@@ -7,27 +7,20 @@
 //
 
 import XCTest
+@testable import ImageUploader
 
 class LoadingViewModelTests: XCTestCase {
+    
+    private let viewModel: LoadingViewProtocol = LoadingViewModel()
+    private let uploadingProgress: TestObserver<String, Never> = TestObserver()
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        viewModel.outputs.uploadingProgress.observe(uploadingProgress.observer)
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testUploadingProgressPercentageText() {
+        viewModel.inputs.configure(with: 0.5000)
+       
+        uploadingProgress.assertValue("Uploading 50%")
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
