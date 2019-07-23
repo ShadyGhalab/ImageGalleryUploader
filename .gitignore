@@ -18,10 +18,6 @@ DerivedData
 *.ipa
 *.xcuserstate
 *.h-e
-CI_All.xcworkspace/xcuserdata/
-**/FailureDiffs
-build_logs
-build_products
 
 
 # Carthage (only Checkouts, Build should be committed)
