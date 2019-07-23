@@ -66,7 +66,7 @@ final class FilesUploader: NSObject {
 
     weak var delegate: FilesUploaderDelegate?
 
-    public convenience init(sessionIdentifier: String, cloudName: String) {
+    public convenience init(sessionIdentifier: String = UUID().uuidString, cloudName: String) {
         let configuration = URLSessionConfiguration.background(withIdentifier: sessionIdentifier)
         self.init(configuration: configuration, cloudName: cloudName)
     }
