@@ -93,7 +93,6 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
                 (self?.navigationItem.titleView as? LoadingView)?.viewModel.inputs.configure(with: progress)
         }
         
-       
         collectionView.reactive.reloadData <~ viewModel.outputs.reloadData
     }
     
