@@ -54,16 +54,17 @@ class ImageGalleryDetailsViewControllerSnapshotsTests: FBSnapshotTestCase {
     override func tearDown() {
         fileStoringManager.removeResource(withResourceName: resourceName)
         AppDelegate.shared.persistentContainer.viewContext.delete(resource)
+        AppDelegate.shared.saveContext()
+        
         super.tearDown()
     }
 
 }
 
 extension FileStorageManager {
-    func writeResourceToFile(withResourceName name: String)  {
-        let testImage = UIImage(color: .blue)!
+    func writeResourceToFile(withResourceName name: String, with image: UIImage =  UIImage(color: .blue)!)  {
         do {
-            try _ = write(data: testImage.jpegData(compressionQuality: 1)!, withResourceName: name)
+            try _ = write(data: image.jpegData(compressionQuality: 1)!, withResourceName: name)
         } catch  { }
     }
     

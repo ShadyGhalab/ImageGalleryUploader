@@ -11,6 +11,7 @@ import Foundation
 protocol FilesStoring: AnyObject {
     func write(data: Data, withResourceName resourceName: String) throws -> URL
     func removeData(for resourceName: String) throws
+    func replaceData(withResourceName resourceName: String, for data: Data) throws
 }
 
 final class FileStorageManager: FilesStoring {
@@ -32,5 +33,10 @@ final class FileStorageManager: FilesStoring {
         let url = documentUrl.appendingPathComponent(resourceName)
         
         try fileManager.removeItem(at: url)
+    }
+    
+    func replaceData(withResourceName resourceName: String, for data: Data) throws {
+        try removeData(for: resourceName)
+        try _ = write(data: data, withResourceName: resourceName)
     }
 }

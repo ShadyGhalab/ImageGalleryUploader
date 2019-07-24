@@ -53,10 +53,6 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
 
     override init() {
         
-        insertedIndexPaths = viewDidLoadProperty.signal
-            .combineLatest(with: insertedIndexPathProperty.signal.skipNil())
-            .map { [$0.1] }
-       
         reloadData = reloadDataProperty.signal
         
         performBatchUpdates = performBatchUpdatesProperty.signal
@@ -72,7 +68,8 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
         let dataAndNameSignal = Signal.zip(uploadedResourceDataProperty.signal.skipNil(),
                                            uploadedResourceNameProperty.signal.skipNil())
         
-        loadingIndicatorStarted = dataAndNameSignal.withLatest(from: fileUploaderProperty.signal.skipNil())
+        loadingIndicatorStarted = dataAndNameSignal
+            .withLatest(from: fileUploaderProperty.signal.skipNil())
             .on(value: { dataAndName, fileUploader in
                 let data = dataAndName.0
                 let name = dataAndName.1
@@ -80,22 +77,30 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
                 fileUploader.upload(data: data, resourceName: name, resourceType: .image)
             }).map { _ in () }
         
-        let willStoredResouseDataInFile = resourceInfoProperty.signal.skipNil()
+        let willStoreResouseDataInFile = resourceInfoProperty.signal.skipNil()
             .skipRepeats ( == )
             .combineLatest(with: dataAndNameSignal.signal)
             .combineLatest(with: fileStorageManagerProperty.signal.skipNil())
-            .map { ($0.0.1.1, $0.0.1.0, $0.1) }
+            .map { arg0 -> (String, Data, FilesStoring) in
+                let ((_, (data, name)), filesStoring) = arg0
+               
+                return (name, data, filesStoring)
+            }
         
-        _ = willStoredResouseDataInFile
-            .observeValues { resourceName, data, fileStorageManager in
+        let didStoreResouseDataInFile = willStoreResouseDataInFile
+            .on(value: { resourceName, data, fileStorageManager  in
                 do {
-                    try fileStorageManager.removeData(for: resourceName)
-                    try _ = fileStorageManager.write(data: data, withResourceName: resourceName)
+                    try fileStorageManager.replaceData(withResourceName: resourceName, for: data)
                 } catch {
-                    os_log("Failed to write resource data in the file with name: %{public}@, with error: %{public}@",
+                    os_log("Failed to replace resource data in the file with name: %{public}@, with error: %{public}@",
                            log: logger, type: .info, resourceName, error.localizedDescription)
                 }
-        }
+            }).map { _ in () }
+        
+        insertedIndexPaths = viewDidLoadProperty.signal
+            .combineLatest(with: insertedIndexPathProperty.signal.skipNil())
+            .combineLatest(with: didStoreResouseDataInFile.signal)
+            .map { [$0.0.1] }
         
         loadingIndicatorStopped = didFinishUploadingProperty.signal
         

@@ -180,6 +180,15 @@
 			path = Snapshots;
 			sourceTree = "<group>";
 		};
+		D56816AB22E840A600B2FB79 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D5755B6822E39B4100E0EEA4 /* Resource+CoreDataClass.swift */,
+				D5755B6922E39B4100E0EEA4 /* Resource+CoreDataProperties.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		D5755AC022E305E200E0EEA4 = {
 			isa = PBXGroup;
 			children = (
@@ -257,9 +266,9 @@
 		D5755B3122E37BAA00E0EEA4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D5755BA122E63E2600E0EEA4 /* ImageGalleryNavigationController.swift */,
 				D5755B3722E37C3E00E0EEA4 /* ImageGalleryViewController.swift */,
 				D5755B3622E37C3E00E0EEA4 /* ImageGalleryDetailsViewController.swift */,
+				D5755BA122E63E2600E0EEA4 /* ImageGalleryNavigationController.swift */,
 				D5755B3322E37BE300E0EEA4 /* Cells */,
 			);
 			path = Controllers;
@@ -328,8 +337,7 @@
 		D5755B5322E3898C00E0EEA4 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				D5755B6822E39B4100E0EEA4 /* Resource+CoreDataClass.swift */,
-				D5755B6922E39B4100E0EEA4 /* Resource+CoreDataProperties.swift */,
+				D56816AB22E840A600B2FB79 /* Models */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";

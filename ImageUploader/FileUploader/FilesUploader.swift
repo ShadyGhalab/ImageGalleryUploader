@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import os.log
 
-fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "FilesDownloader") // swiftlint:disable:this force_unwrapping
+fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "FilesUploader") // swiftlint:disable:this force_unwrapping
 
 fileprivate extension URLSessionTask {
     var taskRequestUrl: URL {
@@ -61,13 +61,14 @@ public protocol FilesUploading {
 }
 
 class FilesUploader: NSObject, FilesUploading {
+ 
     private var uploadSession: URLSession!
+    private var receivedData: Data?
     private var cloudName: String!
     private let clouldPresentParameters = ["upload_preset": "zl2tzkdx"]
     private let responseDecoder: DataResponseDecoding = DataResponseDecoder()
     private let uploadedDecodedItem = UploadedDecodedItem()
     private let fileStorageManager: FilesStoring = FileStorageManager()
-    private var receivedData: Data?
 
     weak var delegate: FilesUploaderDelegate?
 

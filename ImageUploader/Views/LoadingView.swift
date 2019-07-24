@@ -11,8 +11,8 @@ import ReactiveSwift
 
 final class LoadingView: UIView {
 
-    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var progressLabel: UILabel!
     
     let viewModel: LoadingViewProtocol = LoadingViewModel()
     
