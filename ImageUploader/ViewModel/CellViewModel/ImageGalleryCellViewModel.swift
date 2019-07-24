@@ -16,6 +16,7 @@ protocol ImageGalleryCellViewInputs {
 
 protocol ImageGalleryCellViewOutputs {
     var image: Signal<UIImage, Never> { get }
+    var isUploaded: Signal<Bool, Never> { get }
 }
 
 protocol ImageGalleryCellViewProtocol: Any {
@@ -45,6 +46,8 @@ struct ImageGalleryCellViewModel: ImageGalleryCellViewInputs, ImageGalleryCellVi
                     return nil
                 }
             }.skipNil()
+        
+        isUploaded = resourceProperty.signal.skipNil().map { $0.isUploaded }
     }
     
     private let resourceProperty = MutableProperty<Resource?>(nil)
@@ -52,5 +55,6 @@ struct ImageGalleryCellViewModel: ImageGalleryCellViewInputs, ImageGalleryCellVi
         resourceProperty.value = resource
     }
     
+    let isUploaded: Signal<Bool, Never>
     let image: Signal<UIImage, Never>
 }

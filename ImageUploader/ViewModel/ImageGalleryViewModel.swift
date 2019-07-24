@@ -26,7 +26,7 @@ protocol ImageGalleryViewInputs {
 }
 
 protocol ImageGalleryViewOutputs {
-    var insertedIndexPaths: Signal<[IndexPath], Never> { get }   
+    var insertedIndexPaths: Signal<[IndexPath], Never> { get }
     var performBatchUpdates: Signal<(), Never> { get }
     var reloadData: Signal<(), Never> { get }
     var loadingIndicatorStarted: Signal<(), Never> { get }
@@ -50,20 +50,12 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
     private var shouldReloadCollectionView: Bool = false
     private var sectionItems: SectionItems?
     private var numberOfSections: NumberOfSections?
-
+    
     override init() {
         
         reloadData = reloadDataProperty.signal
         
         performBatchUpdates = performBatchUpdatesProperty.signal
-        
-        let willInsertResource = resourceInfoProperty.signal.skipNil()
-            .skipRepeats ( == )
-            .withLatest(from: uploadedResourceNameProperty.signal.skipNil())
-        
-        _ = willInsertResource.observeValues {  resourceInfo, name in
-            _ = Resource.make(id: resourceInfo.id, name: name, createdAt: resourceInfo.createdAt, isUploaded: true)
-        }
         
         let dataAndNameSignal = Signal.zip(uploadedResourceDataProperty.signal.skipNil(),
                                            uploadedResourceNameProperty.signal.skipNil())
@@ -79,13 +71,13 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
         
         let willStoreResouseDataInFile = resourceInfoProperty.signal.skipNil()
             .skipRepeats ( == )
-            .combineLatest(with: dataAndNameSignal.signal)
-            .combineLatest(with: fileStorageManagerProperty.signal.skipNil())
+            .withLatest(from: dataAndNameSignal.signal)
+            .withLatest(from: fileStorageManagerProperty.signal.skipNil())
             .map { arg0 -> (String, Data, FilesStoring) in
                 let ((_, (data, name)), filesStoring) = arg0
-               
+                
                 return (name, data, filesStoring)
-            }
+        }
         
         let didStoreResouseDataInFile = willStoreResouseDataInFile
             .on(value: { resourceName, data, fileStorageManager  in
@@ -97,10 +89,20 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
                 }
             }).map { _ in () }
         
+        let willStoredResourceInCoreData = didStoreResouseDataInFile.signal
+            .zip(with: resourceInfoProperty.signal.skipNil())
+            .withLatest(from: uploadedResourceNameProperty.signal.skipNil())
+            .map { ($0.0.1, $0.1) }
+        
+        willStoredResourceInCoreData.observeValues { _ = Resource.make(id: $0.id,
+                                                                       name: $1,
+                                                                       createdAt: $0.createdAt,
+                                                                       isUploaded: true) }
         insertedIndexPaths = viewDidLoadProperty.signal
             .combineLatest(with: insertedIndexPathProperty.signal.skipNil())
             .combineLatest(with: didStoreResouseDataInFile.signal)
             .map { [$0.0.1] }
+            .skipRepeats(==)
         
         loadingIndicatorStopped = didFinishUploadingProperty.signal
         

@@ -46,17 +46,27 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t7M-OK-G0j">
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="134"/>
                                                 </imageView>
+                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uploaded" translatesAutoresizingMaskIntoConstraints="NO" id="oct-m4-xtZ">
+                                                    <rect key="frame" x="176" y="110" width="16" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="GPd-YR-e3P"/>
+                                                        <constraint firstAttribute="width" constant="16" id="n8R-vw-nRn"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="t7M-OK-G0j" firstAttribute="top" secondItem="NJ5-C5-qfy" secondAttribute="top" id="9Nw-CY-eQI"/>
                                             <constraint firstItem="t7M-OK-G0j" firstAttribute="leading" secondItem="NJ5-C5-qfy" secondAttribute="leading" id="Hlf-xy-dFO"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="oct-m4-xtZ" secondAttribute="bottom" id="IH5-U2-2p0"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="oct-m4-xtZ" secondAttribute="trailing" id="UiE-IT-8Gp"/>
                                             <constraint firstAttribute="bottom" secondItem="t7M-OK-G0j" secondAttribute="bottom" id="g8Z-uK-60f"/>
                                             <constraint firstAttribute="trailing" secondItem="t7M-OK-G0j" secondAttribute="trailing" id="hUC-GR-qSM"/>
                                         </constraints>
                                         <size key="customSize" width="200" height="134"/>
                                         <connections>
                                             <outlet property="imageView" destination="t7M-OK-G0j" id="Pue-Hg-RtO"/>
+                                            <outlet property="uploadingStatusimageView" destination="oct-m4-xtZ" id="zBr-J3-Y2N"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -180,5 +190,8 @@
             <point key="canvasLocation" x="-30.434782608695656" y="75.669642857142847"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="uploaded" width="18" height="18"/>
+    </resources>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

@@ -18,7 +18,8 @@ private enum Constants {
 final class ImageGalleryCollectionViewCell: UICollectionViewCell {
    
     @IBOutlet weak var imageView: UIImageView!
-   
+    @IBOutlet weak var uploadingStatusimageView: UIImageView!
+
     let viewModel: ImageGalleryCellViewProtocol = ImageGalleryCellViewModel()
     
     override func awakeFromNib() {
@@ -30,6 +31,7 @@ final class ImageGalleryCollectionViewCell: UICollectionViewCell {
     
     func bindViewModel() {
         imageView.reactive.image <~ viewModel.outputs.image
+        uploadingStatusimageView.reactive.isHidden <~ viewModel.outputs.isUploaded.map { !$0 }
     }
     
     private func makeImageViewRounded() {
