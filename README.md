@@ -12,6 +12,7 @@ Xcode Version 10.2.1 (10E1001)
  ### Dev Setup 
 
 ```
+ - Install Swiftlint using: brew install swiftlint
  - git clone https://github.com/ShadyGhalab/ImageUploader.git
  - carthage update --platform iOS
  - Run! 😎
