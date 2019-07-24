@@ -17,7 +17,21 @@
                BlueprintIdentifier = "D5755AC822E305E200E0EEA4"
                BuildableName = "ImageGalleryUploader .app"
                BlueprintName = "ImageGalleryUploader "
-               ReferencedContainer = "container:ImageGalleryUploaderT.xcodeproj">
+               ReferencedContainer = "container:ImageGalleryUploader.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D5755ADF22E305E400E0EEA4"
+               BuildableName = "ImageGalleryUploaderests.xctest"
+               BlueprintName = "ImageGalleryUploaderests"
+               ReferencedContainer = "container:ImageGalleryUploader.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,6 +42,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "NO">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D5755ADF22E305E400E0EEA4"
+               BuildableName = "ImageGalleryUploaderests.xctest"
+               BlueprintName = "ImageGalleryUploaderests"
+               ReferencedContainer = "container:ImageGalleryUploader.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
@@ -35,7 +59,7 @@
             BlueprintIdentifier = "D5755AC822E305E200E0EEA4"
             BuildableName = "ImageGalleryUploader .app"
             BlueprintName = "ImageGalleryUploader "
-            ReferencedContainer = "container:ImageGalleryUploaderT.xcodeproj">
+            ReferencedContainer = "container:ImageGalleryUploader.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <EnvironmentVariables>
@@ -70,7 +94,7 @@
             BlueprintIdentifier = "D5755AC822E305E200E0EEA4"
             BuildableName = "ImageGalleryUploader .app"
             BlueprintName = "ImageGalleryUploader "
-            ReferencedContainer = "container:ImageGalleryUploaderT.xcodeproj">
+            ReferencedContainer = "container:ImageGalleryUploader.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -89,7 +113,7 @@
             BlueprintIdentifier = "D5755AC822E305E200E0EEA4"
             BuildableName = "ImageGalleryUploader .app"
             BlueprintName = "ImageGalleryUploader "
-            ReferencedContainer = "container:ImageGalleryUploaderT.xcodeproj">
+            ReferencedContainer = "container:ImageGalleryUploader.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
