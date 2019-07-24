@@ -10,7 +10,7 @@ import Foundation
 
 import XCTest
 
-@testable import ImageUploader
+@testable import ImageGalleryUploader
 
 fileprivate enum Constants {
     static let compressionQuality: CGFloat = 1

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import ImageUploader
+@testable import ImageGalleryUploader
 
 class LoadingViewModelTests: XCTestCase {
     

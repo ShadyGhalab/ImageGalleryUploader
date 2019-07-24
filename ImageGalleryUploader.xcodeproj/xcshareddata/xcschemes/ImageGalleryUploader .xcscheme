@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D5755AC822E305E200E0EEA4"
-               BuildableName = "ImageUploader.app"
-               BlueprintName = "ImageUploader"
-               ReferencedContainer = "container:ImageUploader.xcodeproj">
+               BuildableName = "ImageGalleryUploader .app"
+               BlueprintName = "ImageGalleryUploader "
+               ReferencedContainer = "container:ImageGalleryUploaderT.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,35 +28,25 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "NO">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D5755ADF22E305E400E0EEA4"
-               BuildableName = "ImageUploaderTests.xctest"
-               BlueprintName = "ImageUploaderTests"
-               ReferencedContainer = "container:ImageUploader.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D5755AC822E305E200E0EEA4"
-            BuildableName = "ImageUploader.app"
-            BlueprintName = "ImageUploader"
-            ReferencedContainer = "container:ImageUploader.xcodeproj">
+            BuildableName = "ImageGalleryUploader .app"
+            BlueprintName = "ImageGalleryUploader "
+            ReferencedContainer = "container:ImageGalleryUploaderT.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "FB_REFERENCE_IMAGE_DIR"
-            value = "$(SOURCE_ROOT)/$(PROJECT_NAME)Tests/ReferenceImages"
+            key = "IMAGE_DIFF_DIR"
+            value = "$(SOURCE_ROOT)/$(PROJECT_NAME)Tests/FailureDiffs"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
-            key = "IMAGE_DIFF_DIR"
-            value = "$(SOURCE_ROOT)/$(PROJECT_NAME)Tests/FailureDiffs"
+            key = "FB_REFERENCE_IMAGE_DIR"
+            value = "$(SOURCE_ROOT)/$(PROJECT_NAME)Tests/ReferenceImages"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
@@ -78,9 +68,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D5755AC822E305E200E0EEA4"
-            BuildableName = "ImageUploader.app"
-            BlueprintName = "ImageUploader"
-            ReferencedContainer = "container:ImageUploader.xcodeproj">
+            BuildableName = "ImageGalleryUploader .app"
+            BlueprintName = "ImageGalleryUploader "
+            ReferencedContainer = "container:ImageGalleryUploaderT.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -97,9 +87,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D5755AC822E305E200E0EEA4"
-            BuildableName = "ImageUploader.app"
-            BlueprintName = "ImageUploader"
-            ReferencedContainer = "container:ImageUploader.xcodeproj">
+            BuildableName = "ImageGalleryUploader .app"
+            BlueprintName = "ImageGalleryUploader "
+            ReferencedContainer = "container:ImageGalleryUploaderT.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -51,12 +51,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D5755AE122E305E400E0EEA4 /* PBXContainerItemProxy */ = {
+		D557F67B22E8B0190000D607 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D5755AC122E305E200E0EEA4 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D5755AC822E305E200E0EEA4;
-			remoteInfo = ImageUploader;
+			remoteInfo = "ImageGalleryUploader ";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -94,13 +94,13 @@
 		D56816A022E7566600B2FB79 /* ImageGalleryDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryDataSourceTests.swift; sourceTree = "<group>"; };
 		D56816A322E761DF00B2FB79 /* ImageGalleryViewControllerSnapshotsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewControllerSnapshotsTests.swift; sourceTree = "<group>"; };
 		D56816A722E7926100B2FB79 /* ImageGalleryDetailsViewControllerSnapshotsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryDetailsViewControllerSnapshotsTests.swift; sourceTree = "<group>"; };
-		D5755AC922E305E200E0EEA4 /* ImageUploader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageUploader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5755AC922E305E200E0EEA4 /* ImageGalleryUploader .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ImageGalleryUploader .app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5755ACC22E305E200E0EEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5755AD422E305E200E0EEA4 /* ImageUploader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageUploader.xcdatamodel; sourceTree = "<group>"; };
 		D5755AD622E305E400E0EEA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D5755AD922E305E400E0EEA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D5755ADB22E305E400E0EEA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D5755AE022E305E400E0EEA4 /* ImageUploaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageUploaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5755AE022E305E400E0EEA4 /* ImageGalleryUploaderests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageGalleryUploaderests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5755AE622E305E400E0EEA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5755AF322E3100500E0EEA4 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		D5755AF422E3100500E0EEA4 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
@@ -192,8 +192,8 @@
 		D5755AC022E305E200E0EEA4 = {
 			isa = PBXGroup;
 			children = (
-				D5755ACB22E305E200E0EEA4 /* ImageUploader */,
-				D5755AE322E305E400E0EEA4 /* ImageUploaderTests */,
+				D5755ACB22E305E200E0EEA4 /* ImageGalleryUploader */,
+				D5755AE322E305E400E0EEA4 /* ImageGalleryUploaderTests */,
 				D5755ACA22E305E200E0EEA4 /* Products */,
 				D5755AF222E3100500E0EEA4 /* Frameworks */,
 			);
@@ -202,13 +202,13 @@
 		D5755ACA22E305E200E0EEA4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D5755AC922E305E200E0EEA4 /* ImageUploader.app */,
-				D5755AE022E305E400E0EEA4 /* ImageUploaderTests.xctest */,
+				D5755AC922E305E200E0EEA4 /* ImageGalleryUploader .app */,
+				D5755AE022E305E400E0EEA4 /* ImageGalleryUploaderests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D5755ACB22E305E200E0EEA4 /* ImageUploader */ = {
+		D5755ACB22E305E200E0EEA4 /* ImageGalleryUploader */ = {
 			isa = PBXGroup;
 			children = (
 				D5755B7F22E5C53600E0EEA4 /* Managers */,
@@ -228,10 +228,10 @@
 				D5755AD322E305E200E0EEA4 /* ImageUploader.xcdatamodeld */,
 				D568169822E7264200B2FB79 /* Localizable.strings */,
 			);
-			path = ImageUploader;
+			path = ImageGalleryUploader;
 			sourceTree = "<group>";
 		};
-		D5755AE322E305E400E0EEA4 /* ImageUploaderTests */ = {
+		D5755AE322E305E400E0EEA4 /* ImageGalleryUploaderTests */ = {
 			isa = PBXGroup;
 			children = (
 				D56816A222E761B900B2FB79 /* Snapshots */,
@@ -240,7 +240,7 @@
 				D5755BA722E6402700E0EEA4 /* Helpers */,
 				D5755AE622E305E400E0EEA4 /* Info.plist */,
 			);
-			path = ImageUploaderTests;
+			path = ImageGalleryUploaderTests;
 			sourceTree = "<group>";
 		};
 		D5755AF222E3100500E0EEA4 /* Frameworks */ = {
@@ -378,9 +378,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D5755AC822E305E200E0EEA4 /* ImageUploader */ = {
+		D5755AC822E305E200E0EEA4 /* ImageGalleryUploader  */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5755AE922E305E400E0EEA4 /* Build configuration list for PBXNativeTarget "ImageUploader" */;
+			buildConfigurationList = D5755AE922E305E400E0EEA4 /* Build configuration list for PBXNativeTarget "ImageGalleryUploader " */;
 			buildPhases = (
 				D5755AC522E305E200E0EEA4 /* Sources */,
 				D5755AC622E305E200E0EEA4 /* Frameworks */,
@@ -392,14 +392,14 @@
 			);
 			dependencies = (
 			);
-			name = ImageUploader;
+			name = "ImageGalleryUploader ";
 			productName = ImageUploader;
-			productReference = D5755AC922E305E200E0EEA4 /* ImageUploader.app */;
+			productReference = D5755AC922E305E200E0EEA4 /* ImageGalleryUploader .app */;
 			productType = "com.apple.product-type.application";
 		};
-		D5755ADF22E305E400E0EEA4 /* ImageUploaderTests */ = {
+		D5755ADF22E305E400E0EEA4 /* ImageGalleryUploaderests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5755AEC22E305E400E0EEA4 /* Build configuration list for PBXNativeTarget "ImageUploaderTests" */;
+			buildConfigurationList = D5755AEC22E305E400E0EEA4 /* Build configuration list for PBXNativeTarget "ImageGalleryUploaderests" */;
 			buildPhases = (
 				D5755ADC22E305E400E0EEA4 /* Sources */,
 				D5755ADD22E305E400E0EEA4 /* Frameworks */,
@@ -409,11 +409,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				D5755AE222E305E400E0EEA4 /* PBXTargetDependency */,
+				D557F67C22E8B0190000D607 /* PBXTargetDependency */,
 			);
-			name = ImageUploaderTests;
+			name = ImageGalleryUploaderests;
 			productName = ImageUploaderTests;
-			productReference = D5755AE022E305E400E0EEA4 /* ImageUploaderTests.xctest */;
+			productReference = D5755AE022E305E400E0EEA4 /* ImageGalleryUploaderests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -440,7 +440,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D5755AC422E305E200E0EEA4 /* Build configuration list for PBXProject "ImageUploader" */;
+			buildConfigurationList = D5755AC422E305E200E0EEA4 /* Build configuration list for PBXProject "ImageGalleryUploader" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -453,8 +453,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D5755AC822E305E200E0EEA4 /* ImageUploader */,
-				D5755ADF22E305E400E0EEA4 /* ImageUploaderTests */,
+				D5755AC822E305E200E0EEA4 /* ImageGalleryUploader  */,
+				D5755ADF22E305E400E0EEA4 /* ImageGalleryUploaderests */,
 			);
 		};
 /* End PBXProject section */
@@ -549,10 +549,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D5755AE222E305E400E0EEA4 /* PBXTargetDependency */ = {
+		D557F67C22E8B0190000D607 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D5755AC822E305E200E0EEA4 /* ImageUploader */;
-			targetProxy = D5755AE122E305E400E0EEA4 /* PBXContainerItemProxy */;
+			target = D5755AC822E305E200E0EEA4 /* ImageGalleryUploader  */;
+			targetProxy = D557F67B22E8B0190000D607 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -695,12 +695,13 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = ImageUploader/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ImageGalleryUploader/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Spark-Network.ImageUploader";
+				PRODUCT_MODULE_NAME = ImageGalleryUploader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -718,12 +719,13 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = ImageUploader/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ImageGalleryUploader/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Spark-Network.ImageUploader";
+				PRODUCT_MODULE_NAME = ImageGalleryUploader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -741,17 +743,18 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = ImageUploaderTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ImageGalleryUploaderTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Spark-Network.ImageUploaderTests";
+				PRODUCT_MODULE_NAME = ImageGalleryUploaderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImageUploader.app/ImageUploader";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImageGalleryUploader .app/ImageGalleryUploader ";
 			};
 			name = Debug;
 		};
@@ -766,24 +769,25 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = ImageUploaderTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ImageGalleryUploaderTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Spark-Network.ImageUploaderTests";
+				PRODUCT_MODULE_NAME = ImageGalleryUploaderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImageUploader.app/ImageUploader";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImageGalleryUploader .app/ImageGalleryUploader ";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D5755AC422E305E200E0EEA4 /* Build configuration list for PBXProject "ImageUploader" */ = {
+		D5755AC422E305E200E0EEA4 /* Build configuration list for PBXProject "ImageGalleryUploader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5755AE722E305E400E0EEA4 /* Debug */,
@@ -792,7 +796,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5755AE922E305E400E0EEA4 /* Build configuration list for PBXNativeTarget "ImageUploader" */ = {
+		D5755AE922E305E400E0EEA4 /* Build configuration list for PBXNativeTarget "ImageGalleryUploader " */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5755AEA22E305E400E0EEA4 /* Debug */,
@@ -801,7 +805,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5755AEC22E305E400E0EEA4 /* Build configuration list for PBXNativeTarget "ImageUploaderTests" */ = {
+		D5755AEC22E305E400E0EEA4 /* Build configuration list for PBXNativeTarget "ImageGalleryUploaderests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5755AED22E305E400E0EEA4 /* Debug */,

@@ -8,7 +8,7 @@
 
 import XCTest
 import CoreData
-@testable import ImageUploader
+@testable import ImageGalleryUploader
 
 class ImageGalleryDataSourceTests: XCTestCase {
 

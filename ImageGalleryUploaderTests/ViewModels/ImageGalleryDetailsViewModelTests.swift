@@ -1,5 +1,5 @@
 //
-//  ImageGalleryCellViewModelTests.swift
+//  ImageGalleryDetailsViewModelTests.swift
 //  ImageUploaderTests
 //
 //  Created by Shady Mustafa on 23.07.19.
@@ -8,26 +8,27 @@
 
 import XCTest
 
-@testable import ImageUploader
+@testable import ImageGalleryUploader
 
-class ImageGalleryCellViewModelTests: XCTestCase {
+class ImageGalleryDetailsViewModelTests: XCTestCase {
 
-    private let viewModel: ImageGalleryCellViewProtocol = ImageGalleryCellViewModel()
+    private let viewModel: ImageGalleryDetailsViewProtocol = ImageGalleryDetailsViewModel()
     private let image: TestObserver<UIImage, Never> = TestObserver()
     private let fileStoringManager = FileStorageManager()
     private let resourceName = "Cat"
     private lazy var resource = Resource.make(id: UUID().uuidString,
-                                              name: resourceName,
-                                              createdAt: "2019-07-23T11:33:33Z",
-                                              isUploaded: true)
+                                 name: resourceName,
+                                 createdAt: "2019-07-23T11:33:33Z",
+                                 isUploaded: true)
     override func setUp() {
         viewModel.outputs.image.observe(image.observer)
     }
-
+    
     func testLoadingImage() {
         writeResourceToFile(withResourceName: resourceName)
         
         viewModel.inputs.configure(with: resource)
+        viewModel.inputs.viewDidLoad()
         
         image.assertDidEmitValue("Image has been loaded")
     }
@@ -40,7 +41,7 @@ class ImageGalleryCellViewModelTests: XCTestCase {
     }
 }
 
-private extension ImageGalleryCellViewModelTests {
+private extension ImageGalleryDetailsViewModelTests {
      func writeResourceToFile(withResourceName name: String)  {
         let testImage = UIImage(color: .blue)!
         do {

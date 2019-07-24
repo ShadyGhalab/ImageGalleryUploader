@@ -10,7 +10,7 @@ import XCTest
 import FBSnapshotTestCase
 import ReactiveSwift
 
-@testable import ImageUploader
+@testable import ImageGalleryUploader
 
 class ImageGalleryViewControllerSnapshots: FBSnapshotTestCase {
     
