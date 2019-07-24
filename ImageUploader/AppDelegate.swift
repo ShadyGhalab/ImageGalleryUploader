@@ -23,10 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
+        let fileUploader = FilesUploader(sessionIdentifier: UUID().uuidString, cloudName: Constants.cloudName)
         let imageGalleryNavigationController = ImageGalleryNavigationController.make()
         let imageGalleryViewController = imageGalleryNavigationController.topViewController as? ImageGalleryViewController
        
-        let fileUploader = FilesUploader(sessionIdentifier: UUID().uuidString, cloudName: Constants.cloudName)
         imageGalleryViewController?.viewModel.inputs.configure(with: fileUploader, fileStorageManager: FileStorageManager())
         
         self.window?.rootViewController = imageGalleryNavigationController

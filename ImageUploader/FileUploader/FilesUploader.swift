@@ -51,7 +51,7 @@ public enum UploadCancelReason {
 public protocol FilesUploaderDelegate: class {
     func didFinishUploading(for url: URL, resourceInfo: ResourceInfo?)
     func didChangeProgress(for url: URL, progress: Float)
-    func uploadFailed(for url: URL?, resumeData: Data?, cancellationReason: UploadCancelReason?, error: Error?)
+    func uploadFailed(for url: URL?, cancellationReason: UploadCancelReason?, error: Error?)
     func backgroundTasksFinished()
 }
 
@@ -98,14 +98,14 @@ class FilesUploader: NSObject, FilesUploading {
                        log: logger, type: .info, String(describing: urlRequest.url?.absoluteString), error.localizedDescription)
            
                 let uploadCancelReason = UploadCancelReason(from: NSNumber(integerLiteral: -3003))
-                delegate?.uploadFailed(for: nil, resumeData: nil, cancellationReason: uploadCancelReason, error: error)
+                delegate?.uploadFailed(for: nil, cancellationReason: uploadCancelReason, error: error)
             }
         } else {
                 os_log("Failed to create URL for resource name: %{public}@, with resource type: %{public}@", log: logger, type: .info,
                    resourceName, resourceType.rawValue)
             
                 let uploadCancelReason = UploadCancelReason(from: NSNumber(integerLiteral: -1000))
-                delegate?.uploadFailed(for: nil, resumeData: nil, cancellationReason: uploadCancelReason, error: nil)
+                delegate?.uploadFailed(for: nil, cancellationReason: uploadCancelReason, error: nil)
         }
     }
     
@@ -195,16 +195,14 @@ extension FilesUploader: URLSessionDataDelegate {
         let url = task.taskRequestUrl
         containTask(for: url) { [weak self] isValidUrl in
             if isValidUrl, let nsError = error as NSError? {
-                let resumeData = nsError.userInfo[NSURLSessionDownloadTaskResumeData] as? Data
                 let cancelReason = (nsError.userInfo[NSURLErrorBackgroundTaskCancelledReasonKey] as? NSNumber).flatMap { UploadCancelReason(from: $0) }
                 
-                self?.delegate?.uploadFailed(for: url, resumeData: resumeData, cancellationReason: cancelReason, error: nsError)
+                self?.delegate?.uploadFailed(for: url, cancellationReason: cancelReason, error: nsError)
             }
         }
     }
     
     public func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
-        os_log("urlSessionDidFinishEvents called", log: logger, type: .info)
-        delegate?.backgroundTasksFinished()
+            delegate?.backgroundTasksFinished()
     }
 }

@@ -256,7 +256,7 @@ extension ImageGalleryViewModel: FilesUploaderDelegate {
         uploading(with: progress)
     }
     
-    func uploadFailed(for url: URL?, resumeData: Data?, cancellationReason: UploadCancelReason?, error: Error?) {
+    func uploadFailed(for url: URL?, cancellationReason: UploadCancelReason?, error: Error?) {
         didFinishUploading()
     }
     
