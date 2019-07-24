@@ -122,14 +122,18 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
         }))
         
         alert.addAction(UIAlertAction(title: "imageGallery.alert.Cancel".localized, style: .cancel))
-        
+       
+        // Known bug with iOS12 to fix constraint error
+        // https://stackoverflow.com/questions/55653187/swift-default-alertviewcontroller-breaking-constraints
+        alert.view.addSubview(UIView())
+
         if let presenter = alert.popoverPresentationController,
             let bounds = addBarButtonItem.view?.bounds {
             presenter.sourceView = addBarButtonItem.view
             presenter.sourceRect = bounds
         }
         
-         present(alert, animated: true)
+         present(alert, animated: false)
     }
     
     // MARK: - Navigation
