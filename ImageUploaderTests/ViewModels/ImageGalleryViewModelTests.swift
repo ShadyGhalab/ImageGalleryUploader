@@ -67,7 +67,7 @@ class ImageGalleryViewModelTests: XCTestCase {
             fileUploadExpectation.fulfill()
         }
 
-        waitForExpectations(timeout: 6) { error in
+        waitForExpectations(timeout: 3) { error in
             if let error = error {
                 self.insertedIndexPaths.assertDidFail(error.localizedDescription)
             }
