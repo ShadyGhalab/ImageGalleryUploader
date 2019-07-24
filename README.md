@@ -67,7 +67,7 @@ This project uses the MVVM software architectural pattern.
  ### Dev Setup 
 
 ```
- - Go to https://cloudinary.com/users/login  (Email: shadyghalab@gmail.com, Password: SparkNetwork@1)
+ - Go to https://cloudinary.com/users/login  (**Email: shadyghalab@gmail.com, Password: SparkNetwork@1**)
  - Tap on Media Library on the menu.
  - Find all the uploaded images there! 😎
 ```
