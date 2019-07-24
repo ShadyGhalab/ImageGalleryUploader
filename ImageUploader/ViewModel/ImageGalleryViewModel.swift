@@ -32,6 +32,7 @@ protocol ImageGalleryViewOutputs {
     var loadingIndicatorStarted: Signal<(), Never> { get }
     var loadingIndicatorStopped: Signal<(), Never> { get }
     var uploadingProgress: Signal<Float, Never> { get }
+    var uploadingFailed: Signal<(), Never> { get }
     var fetchedResultController: NSFetchedResultsController<Resource> { get }
 }
 
@@ -69,7 +70,7 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
                 fileUploader.upload(data: data, resourceName: name, resourceType: .image)
             }).map { _ in () }
         
-        let willStoreResouseDataInFile = resourceInfoProperty.signal.skipNil()
+        let willStoreResouseDataInFile = didFinishUploadingWithResourceInfoProperty.signal.skipNil()
             .skipRepeats ( == )
             .withLatest(from: dataAndNameSignal.signal)
             .withLatest(from: fileStorageManagerProperty.signal.skipNil())
@@ -90,7 +91,7 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
             }).map { _ in () }
         
         let willStoredResourceInCoreData = didStoreResouseDataInFile.signal
-            .zip(with: resourceInfoProperty.signal.skipNil())
+            .zip(with: didFinishUploadingWithResourceInfoProperty.signal.skipNil())
             .withLatest(from: uploadedResourceNameProperty.signal.skipNil())
             .map { ($0.0.1, $0.1) }
         
@@ -104,9 +105,12 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
             .map { [$0.0.1] }
             .skipRepeats(==)
         
-        loadingIndicatorStopped = didFinishUploadingProperty.signal
+        loadingIndicatorStopped = Signal.merge(didFinishUploadingWithResourceInfoProperty.signal.map { _ in () },
+                                               didFinishUploadingWithErrorProperty.signal)
         
         uploadingProgress = uploadingProgressProperty.signal.skipNil()
+        
+        uploadingFailed = didFinishUploadingWithErrorProperty.signal
     }
     
     private let fileUploaderProperty = MutableProperty<FilesUploading?>(nil)
@@ -163,14 +167,14 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
         uploadedResourceNameProperty.value = name
     }
     
-    private let resourceInfoProperty = MutableProperty<ResourceInfo?>(nil)
-    private func insertResource(with resourceInfo: ResourceInfo?) {
-        resourceInfoProperty.value = resourceInfo
+    private let didFinishUploadingWithResourceInfoProperty = MutableProperty<ResourceInfo?>(nil)
+    private func didFinishUploading(with resourceInfo: ResourceInfo?) {
+        didFinishUploadingWithResourceInfoProperty.value = resourceInfo
     }
     
-    private let didFinishUploadingProperty = MutableProperty<()>(())
-    private func didFinishUploading() {
-        didFinishUploadingProperty.value = ()
+    private let didFinishUploadingWithErrorProperty = MutableProperty<()>(())
+    private func didFinishWithErrorUploading() {
+        didFinishUploadingWithErrorProperty.value = ()
     }
     
     private let uploadingProgressProperty = MutableProperty<Float?>(nil)
@@ -189,6 +193,7 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
     let loadingIndicatorStarted: Signal<(), Never>
     let loadingIndicatorStopped: Signal<(), Never>
     let uploadingProgress: Signal<Float, Never>
+    var uploadingFailed: Signal<(), Never>
 }
 
 extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
@@ -255,8 +260,11 @@ extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
 
 extension ImageGalleryViewModel: FilesUploaderDelegate {
     func didFinishUploading(for url: URL, resourceInfo: ResourceInfo?) {
-        insertResource(with: resourceInfo)
-        didFinishUploading()
+        if let resourceInfo = resourceInfo {
+            didFinishUploading(with: resourceInfo)
+        } else {
+            didFinishWithErrorUploading()
+        }
     }
     
     func didChangeProgress(for url: URL, progress: Float) {
@@ -264,7 +272,7 @@ extension ImageGalleryViewModel: FilesUploaderDelegate {
     }
     
     func uploadFailed(for url: URL?, cancellationReason: UploadCancelReason?, error: Error?) {
-        didFinishUploading()
+        didFinishWithErrorUploading()
     }
     
     func backgroundTasksFinished() { }

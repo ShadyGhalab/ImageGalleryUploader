@@ -10,3 +10,5 @@
 "imageGallery.alert.Camera" = "Camera";
 "imageGallery.alert.Photo" = "Photo";
 "imageGallery.alert.Cancel" = "Cancel";
+"imageGallery.alert.uploadFailed" = "Upload Failed!";
+"imageGallery.alert.uploadFailed.Ok" = "Ok";

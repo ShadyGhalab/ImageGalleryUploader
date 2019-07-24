@@ -93,16 +93,20 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
                 (self?.navigationItem.titleView as? LoadingView)?.viewModel.inputs.configure(with: progress)
         }
         
+        viewModel.outputs.uploadingFailed
+            .observe(on: UIScheduler())
+            .observeValues { [weak self] in
+                self?.showAlertErrorMessage()
+        }
+        
         collectionView.reactive.reloadData <~ viewModel.outputs.reloadData
     }
     
-    private func scrollCollectionViewToBottom() {
-        let contentHeight = collectionView.contentSize.height
-        let heightAfterInserts = collectionView.frame.size.height - (collectionView.contentInset.top + collectionView.contentInset.bottom)
-       
-        if contentHeight > heightAfterInserts {
-            collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentSize.height - collectionView.frame.size.height), animated: true)
-        }
+    private func showAlertErrorMessage() {
+        let alert = UIAlertController(title: nil, message: "imageGallery.alert.uploadFailed".localized, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "imageGallery.alert.uploadFailed.Ok".localized, style: .default))
+
+        present(alert, animated: false)
     }
     
     @IBAction func addResourceBarButtonTapped(_ sender: Any) {
@@ -135,6 +139,15 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
          present(alert, animated: false)
     }
     
+    private func scrollCollectionViewToBottom() {
+        let contentHeight = collectionView.contentSize.height
+        let heightAfterInserts = collectionView.frame.size.height - (collectionView.contentInset.top + collectionView.contentInset.bottom)
+        
+        if contentHeight > heightAfterInserts {
+            collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentSize.height - collectionView.frame.size.height), animated: true)
+        }
+    }
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -145,6 +158,7 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
             viewController.viewModel.inputs.configure(with: resource)
         }
     }
+    
 }
 
 extension ImageGalleryViewController: UICollectionViewDelegateFlowLayout {

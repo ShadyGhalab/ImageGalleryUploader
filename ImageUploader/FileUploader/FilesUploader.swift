@@ -74,6 +74,9 @@ class FilesUploader: NSObject, FilesUploading {
 
     public convenience init(sessionIdentifier: String = UUID().uuidString, cloudName: String) {
         let configuration = URLSessionConfiguration.background(withIdentifier: sessionIdentifier)
+        configuration.timeoutIntervalForRequest = 30.0
+        configuration.timeoutIntervalForResource = 60.0
+        
         self.init(configuration: configuration, cloudName: cloudName)
     }
     
