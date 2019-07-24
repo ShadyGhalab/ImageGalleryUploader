@@ -18,6 +18,11 @@ fileprivate extension URLSessionTask {
     }
 }
 
+private enum Constants {
+    static let badUrlErrorCode: Int = -3003
+    static let failedWriteToFileErrorCode: Int = -1000
+}
+
 public enum ResourceType: String {
     case image
     case video
@@ -90,7 +95,7 @@ class FilesUploader: NSObject, FilesUploading {
         let boundaryConstant = UUID().uuidString
         
         if let url = buildUrl(for: resourceType),
-            let urlRequest = self.urlRequest(with: url, boundaryConstant: boundaryConstant) {
+            let urlRequest = urlRequest(with: url, boundaryConstant: boundaryConstant) {
             
             let data = buildUploadedData(withResourceData: data, boundaryConstant: boundaryConstant, parameters: clouldPresentParameters)
             
@@ -101,14 +106,14 @@ class FilesUploader: NSObject, FilesUploading {
                 os_log("Failed to write resource data in the file for url: %{public}@, with error: %{public}@",
                        log: logger, type: .info, String(describing: urlRequest.url?.absoluteString), error.localizedDescription)
            
-                let uploadCancelReason = UploadCancelReason(from: NSNumber(integerLiteral: -3003))
+                let uploadCancelReason = UploadCancelReason(from: NSNumber(integerLiteral: Constants.failedWriteToFileErrorCode))
                 delegate?.uploadFailed(for: nil, cancellationReason: uploadCancelReason, error: error)
             }
         } else {
                 os_log("Failed to create URL for resource name: %{public}@, with resource type: %{public}@", log: logger, type: .info,
                    resourceName, resourceType.rawValue)
             
-                let uploadCancelReason = UploadCancelReason(from: NSNumber(integerLiteral: -1000))
+                let uploadCancelReason = UploadCancelReason(from: NSNumber(integerLiteral: Constants.badUrlErrorCode))
                 delegate?.uploadFailed(for: nil, cancellationReason: uploadCancelReason, error: nil)
         }
     }
