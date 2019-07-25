@@ -79,9 +79,9 @@ This project uses the MVVM software architectural pattern.
 
 ## Dev Notes ## 
 
-- Cloudinary has iOS SDK that i could have used but i did not, I used their REST APIs so i can showcase my capabilities of coding.
+- Cloudinary has iOS SDK that i could have used but i did not, I used their APIs so i can showcase my capabilities of coding.
 
-- [More Info for their REST APIS](https://cloudinary.com/documentation/image_upload_api_reference)
+- [More Info for their APIS](https://cloudinary.com/documentation/image_upload_api_reference)
 
 
 
