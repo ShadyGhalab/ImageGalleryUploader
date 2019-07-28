@@ -52,7 +52,7 @@ This project uses the MVVM software architectural pattern.
 ### Snapshots Testing
  [FBSnapshotTestCase Page](https://github.com/uber/ios-snapshot-test-case)
  
-- The project uses FBSnapshotTestCase for snapshopt tests.
+- The project uses FBSnapshotTest for snapshopt tests.
 - The snapshots have been recored for iPhone 7 (iOS 12.2) only, And it has been stored in folder "ImageGalleryUploader/ImageGalleryUploaderTests/ReferenceImages_64"
 
 ## Server Side Setup  ##
