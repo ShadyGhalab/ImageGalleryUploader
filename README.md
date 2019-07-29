@@ -4,7 +4,7 @@ Xcode Version 10.2.1 (10E1001)
 
 ## Project ##
 - Gallery Image Uploader - Coding Challenge for Spark Networks  
-- [More Info](https://github.com/sparknetworks/coding_exercises_options/blob/master/gallery_images_upload/README.mda)
+- [More Info](https://github.com/sparknetworks/coding_exercises_options/tree/master/gallery_images_upload)
 
 
 ## Client Setup  ## 
