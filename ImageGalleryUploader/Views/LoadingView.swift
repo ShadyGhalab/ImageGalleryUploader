@@ -23,6 +23,9 @@ final class LoadingView: UIView {
     }
     
     func bindViewModel() {
-       progressLabel.reactive.text <~ viewModel.outputs.uploadingProgress
+        viewModel.outputs.uploadingProgress
+            .observe(on: UIScheduler()).observeValues { [unowned self] in
+                self.progressLabel.text = $0
+        }
     }
 }

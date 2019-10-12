@@ -99,7 +99,11 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
                 self?.showAlertErrorMessage()
         }
         
-        collectionView.reactive.reloadData <~ viewModel.outputs.reloadData
+        viewModel.outputs.reloadData
+            .observe(on: UIScheduler())
+            .observeValues { [weak self] in
+                self?.collectionView.reloadData()
+        }        
     }
     
     private func showAlertErrorMessage() {

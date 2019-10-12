@@ -27,6 +27,10 @@ final class ImageGalleryDetailsViewController: UIViewController, StoryboardMakea
     }
     
     private func bindViewModel() {
-        imageView.reactive.image <~ viewModel.outputs.image
+        viewModel.outputs.image
+            .observe(on: UIScheduler())
+            .observeValues { [unowned self] in
+                self.imageView.image = $0
+        }
     }
 }

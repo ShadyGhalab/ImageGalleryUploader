@@ -30,8 +30,17 @@ final class ImageGalleryCollectionViewCell: UICollectionViewCell {
     }
     
     func bindViewModel() {
-        imageView.reactive.image <~ viewModel.outputs.image
-        uploadingStatusimageView.reactive.isHidden <~ viewModel.outputs.isUploaded.map { !$0 }
+        viewModel.outputs.image
+            .observe(on: UIScheduler())
+            .observeValues { [unowned self] in
+                self.imageView.image = $0
+        }
+        viewModel.outputs.isUploaded
+            .observe(on: UIScheduler())
+            .map { !$0 }
+            .observeValues { [unowned self] in
+                self.uploadingStatusimageView.isHidden = $0
+        }
     }
     
     private func makeImageViewRounded() {
