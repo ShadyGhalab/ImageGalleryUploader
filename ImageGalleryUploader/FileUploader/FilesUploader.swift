@@ -18,11 +18,6 @@ fileprivate extension URLSessionTask {
     }
 }
 
-private enum Constants {
-    static let badUrlErrorCode: Int = -3003
-    static let failedWriteToFileErrorCode: Int = -1000
-}
-
 public enum ResourceType: String {
     case image
     case video
