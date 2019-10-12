@@ -3,13 +3,17 @@
 Xcode Version 11.1 (11A1027)
 
 ## Project ##
- ##allery Images Upload ##
+
+- Gallery Images Upload:
+
 Please provide a gallery with an image upload feature. This exercise is mostly front end with a tiny bit of back end. If you're stronger on the backend, you can try this one, but we'll definitely be looking strength on the front end. Please also ensure both the client and server side is well tested and clean code and that the code works before you submit your code.
 
- ##Client side ##
+ - Client side:
+ 
 The client side can be either web or app. If it's web, please ensure it can be used on multiple devices. Completely up to you what frameworks you use; on our own code we use angular 2 or react for web, and all the usual libs for android and iOS that allows MVVM, MVP, and easier testing.
 
- ##Web Requirements ##
+- Web Requirements:
+
 Provide a gallery view of all previously uploaded images
 For image Upload:
 mobile web, tablet - this will be a button which will prompt you to either access the camera and take a pic, or select from files on device
