@@ -28,29 +28,12 @@ public enum ResourceType: String {
     case video
 }
 
-public enum UploadCancelReason {
-    case forceQuit
-    case backgroundUpdatesDisabled
-    case insufficientSystemResources
-    case failedToWriteToFile
-    case malformedUrl
-    
-    init?(from number: NSNumber) {
-        switch number.intValue {
-        case NSURLErrorCancelledReasonUserForceQuitApplication:
-            self = .forceQuit
-        case NSURLErrorCancelledReasonBackgroundUpdatesDisabled:
-            self = .backgroundUpdatesDisabled
-        case NSURLErrorCancelledReasonInsufficientSystemResources:
-            self = .insufficientSystemResources
-        case NSURLErrorCannotWriteToFile:
-            self = .failedToWriteToFile
-        case NSURLErrorBadURL:
-            self = .malformedUrl
-        default:
-            return nil
-        }
-    }
+public enum UploadCancelReason: Int {
+    case forceQuit = 0
+    case backgroundUpdatesDisabled = 1
+    case insufficientSystemResources = 2
+    case failedToWriteToFile = -3003
+    case malformedUrl = -1000
 }
 
 public protocol FilesUploaderDelegate: class {
@@ -106,14 +89,14 @@ class FilesUploader: NSObject, FilesUploading {
                 os_log("Failed to write resource data in the file for url: %{public}@, with error: %{public}@",
                        log: logger, type: .info, String(describing: urlRequest.url?.absoluteString), error.localizedDescription)
            
-                let uploadCancelReason = UploadCancelReason(from: NSNumber(integerLiteral: Constants.failedWriteToFileErrorCode))
+                let uploadCancelReason = UploadCancelReason.failedToWriteToFile
                 delegate?.uploadFailed(for: nil, cancellationReason: uploadCancelReason, error: error)
             }
         } else {
                 os_log("Failed to create URL for resource name: %{public}@, with resource type: %{public}@", log: logger, type: .info,
                    resourceName, resourceType.rawValue)
             
-                let uploadCancelReason = UploadCancelReason(from: NSNumber(integerLiteral: Constants.badUrlErrorCode))
+            let uploadCancelReason = UploadCancelReason.malformedUrl
                 delegate?.uploadFailed(for: nil, cancellationReason: uploadCancelReason, error: nil)
         }
     }
@@ -200,11 +183,11 @@ extension FilesUploader: URLSessionDataDelegate {
             receivedData = nil
             return
         }
-        
+
         let url = task.taskRequestUrl
         containTask(for: url) { [weak self] isValidUrl in
             if isValidUrl, let nsError = error as NSError? {
-                let cancelReason = (nsError.userInfo[NSURLErrorBackgroundTaskCancelledReasonKey] as? NSNumber).flatMap { UploadCancelReason(from: $0) }
+                let cancelReason = (nsError.userInfo[NSURLErrorBackgroundTaskCancelledReasonKey] as? NSNumber).flatMap { UploadCancelReason(rawValue: $0.intValue) }
                 
                 self?.delegate?.uploadFailed(for: url, cancellationReason: cancelReason, error: nsError)
             }
