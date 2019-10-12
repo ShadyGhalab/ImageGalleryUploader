@@ -3,8 +3,8 @@
 Xcode Version 10.2.1 (10E1001)
 
 ## Project ##
-- Gallery Image Uploader - Coding Challenge for Spark Networks  
-- [More Info](https://github.com/sparknetworks/coding_exercises_options/blob/master/gallery_images_upload/README.mda)
+- Gallery Image Uploader
+- [More Info](https://github.com/sparknetworks/coding_exercises_options/tree/master/gallery_images_upload)
 
 
 ## Client Setup  ## 
@@ -12,6 +12,7 @@ Xcode Version 10.2.1 (10E1001)
  ### Dev Setup 
 
 ```
+ - Install Swiftlint using: brew install swiftlint
  - git clone https://github.com/ShadyGhalab/ImageUploader.git
  - carthage update --platform iOS
  - Run! 😎
@@ -51,8 +52,8 @@ This project uses the MVVM software architectural pattern.
 ### Snapshots Testing
  [FBSnapshotTestCase Page](https://github.com/uber/ios-snapshot-test-case)
  
-- The project uses FBSnapshotTestCase for snapshopt tests.
-- The snapshots have been recored for iPhone 7 only, And it has been stored in folder "ImageGalleryUploader/ImageGalleryUploaderTests/ReferenceImages_64"
+- The project uses FBSnapshotTest for snapshopt tests.
+- The snapshots have been recored for iPhone 7 (iOS 12.2) only, And it has been stored in folder "ImageGalleryUploader/ImageGalleryUploaderTests/ReferenceImages_64"
 
 ## Server Side Setup  ##
 
@@ -78,9 +79,9 @@ This project uses the MVVM software architectural pattern.
 
 ## Dev Notes ## 
 
-- Cloudinary has iOS SDK that i could have used but i did not, I used their REST APIs so i can showcase my capabilities of coding.
+- Cloudinary has iOS SDK that i could have used but i did not, I used their APIs so i can showcase my capabilities of coding.
 
-- [More Info for their REST APIS](https://cloudinary.com/documentation/image_upload_api_reference)
+- [More Info for their APIS](https://cloudinary.com/documentation/image_upload_api_reference)
 
 
 

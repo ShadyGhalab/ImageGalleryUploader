@@ -58,7 +58,7 @@ class ImageGalleryViewModelTests: XCTestCase {
 
         viewModel.inputs.uploadResource(with: resourceData, name: "resourceName1")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.viewModel.inputs.performBatchUpdatesStarted()
             self.viewModel.inputs.performBatchUpdatesCompeleted()
 
@@ -67,7 +67,7 @@ class ImageGalleryViewModelTests: XCTestCase {
             fileUploadExpectation.fulfill()
         }
 
-        waitForExpectations(timeout: 3) { error in
+        waitForExpectations(timeout: 6) { error in
             if let error = error {
                 self.insertedIndexPaths.assertDidFail(error.localizedDescription)
             }
@@ -80,7 +80,7 @@ class ImageGalleryViewModelTests: XCTestCase {
 
         let fileUploadExpectation = expectation(description: "Waiting for the uploading")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.performBatchUpdates.assertDidEmitValue()
 
             fileUploadExpectation.fulfill()
@@ -88,7 +88,7 @@ class ImageGalleryViewModelTests: XCTestCase {
 
         viewModel.inputs.uploadResource(with: resourceData, name: "resourceName2")
 
-        waitForExpectations(timeout: 3) { error in
+        waitForExpectations(timeout: 6) { error in
             if let error = error {
                 self.performBatchUpdates.assertDidFail(error.localizedDescription)
             }
@@ -101,7 +101,7 @@ class ImageGalleryViewModelTests: XCTestCase {
 
         let fileUploadExpectation = expectation(description: "Waiting for the uploading")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.reloadData.assertDidEmitValue()
 
             fileUploadExpectation.fulfill()
@@ -109,7 +109,7 @@ class ImageGalleryViewModelTests: XCTestCase {
 
         viewModel.inputs.uploadResource(with: resourceData, name: "resourceName3")
 
-        waitForExpectations(timeout: 3) { error in
+        waitForExpectations(timeout: 6) { error in
             if let error = error {
                 self.reloadData.assertDidFail(error.localizedDescription)
             }
@@ -131,7 +131,7 @@ class ImageGalleryViewModelTests: XCTestCase {
 
         let fileUploadExpectation = expectation(description: "Waiting for the uploading")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
 
             self.loadingIndicatorStopped.assertDidEmitValue()
 
@@ -140,7 +140,7 @@ class ImageGalleryViewModelTests: XCTestCase {
 
         viewModel.inputs.uploadResource(with: resourceData, name: "resourceName4")
 
-        waitForExpectations(timeout: 3) { error in
+        waitForExpectations(timeout: 6) { error in
             if let error = error {
                 self.loadingIndicatorStopped.assertDidFail(error.localizedDescription)
             }
@@ -155,7 +155,7 @@ class ImageGalleryViewModelTests: XCTestCase {
         
         viewModel.inputs.uploadResource(with: resourceData, name: "resourceName4")
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             
             self.uploadingProgress.assertDidEmitValue()
             
@@ -163,7 +163,7 @@ class ImageGalleryViewModelTests: XCTestCase {
         }
         
         
-        waitForExpectations(timeout: 3) { error in
+        waitForExpectations(timeout: 6) { error in
             if let error = error {
                 self.uploadingProgress.assertDidFail(error.localizedDescription)
             }
