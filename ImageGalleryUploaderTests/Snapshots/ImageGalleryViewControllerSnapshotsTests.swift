@@ -1,9 +1,8 @@
 //
 //  ImageGalleryViewControllerSnapshotsTests.swift
-//  MobileTests
 //
 //  Created by Shady Mustafa on 19.07.19.
-//  Copyright © 2019 Spark Networks. All rights reserved.
+//  Copyright © 2019 Babylon Healths. All rights reserved.
 //
 
 import XCTest
@@ -85,7 +84,7 @@ fileprivate class FileUploaderMock: FilesUploading {
     
     func upload(data: Data, resourceName: String, resourceType: ResourceType = .image) {
         let resource = ResourceInfo(id: UUID().uuidString, createdAt: "2019-07-23T11:33:33Z")
-        delegate?.didFinishUploading(for: URL(string: "https://www.spark.net")!, resourceInfo: resource)
+        delegate?.didFinishUploading(for: URL(string: "https://www.babylonhealth.com")!, resourceInfo: resource)
     }
 }
 

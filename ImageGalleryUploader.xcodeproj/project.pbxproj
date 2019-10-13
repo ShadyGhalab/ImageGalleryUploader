@@ -708,7 +708,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Spark-Network.ImageUploader";
+				PRODUCT_BUNDLE_IDENTIFIER = babylonhealth.ImageUploader;
 				PRODUCT_MODULE_NAME = ImageGalleryUploader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -732,7 +732,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Spark-Network.ImageUploader";
+				PRODUCT_BUNDLE_IDENTIFIER = babylonhealth.ImageUploader;
 				PRODUCT_MODULE_NAME = ImageGalleryUploader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -757,7 +757,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Spark-Network.ImageUploaderTests";
+				PRODUCT_BUNDLE_IDENTIFIER = babylonhealth.ImageUploader;
 				PRODUCT_MODULE_NAME = ImageGalleryUploaderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -783,7 +783,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Spark-Network.ImageUploaderTests";
+				PRODUCT_BUNDLE_IDENTIFIER = babylonhealth.ImageUploader;
 				PRODUCT_MODULE_NAME = ImageGalleryUploaderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

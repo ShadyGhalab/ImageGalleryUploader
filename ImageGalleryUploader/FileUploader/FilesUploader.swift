@@ -3,7 +3,7 @@
 //  ImageUploader
 //
 //  Created by Shady Mustafa on 20.07.19.
-//  Copyright © 2019 Spark Network. All rights reserved.
+//  Copyright © 2019 Babylon Health. All rights reserved.
 //
 
 import Foundation
@@ -182,7 +182,8 @@ extension FilesUploader: URLSessionDataDelegate {
         let url = task.taskRequestUrl
         containTask(for: url) { [weak self] isValidUrl in
             if isValidUrl, let nsError = error as NSError? {
-                let cancelReason = (nsError.userInfo[NSURLErrorBackgroundTaskCancelledReasonKey] as? NSNumber).flatMap { UploadCancelReason(rawValue: $0.intValue) }
+                let cancelReason = (nsError.userInfo[NSURLErrorBackgroundTaskCancelledReasonKey] as? NSNumber)
+                    .flatMap { UploadCancelReason(rawValue: $0.intValue) }
                 
                 self?.delegate?.uploadFailed(for: url, cancellationReason: cancelReason, error: nsError)
             }

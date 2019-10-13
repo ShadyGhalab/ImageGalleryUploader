@@ -1,9 +1,8 @@
 //
 //  ImageGalleryCellViewModel.swift
-//  Mobile
 //
 //  Created by Shady Mustafa on 18.07.19.
-//  Copyright © 2019 Spark Network. All rights reserved.
+//  Copyright © 2019 Babylon Health. All rights reserved.
 //
 
 import Foundation
@@ -47,7 +46,8 @@ struct ImageGalleryCellViewModel: ImageGalleryCellViewInputs, ImageGalleryCellVi
                 }
             }.skipNil()
         
-        isUploaded = resourceProperty.signal.skipNil().map { $0.isUploaded }
+        isUploaded = resourceProperty.signal.skipNil()
+            .map { $0.isUploaded }
     }
     
     private let resourceProperty = MutableProperty<Resource?>(nil)

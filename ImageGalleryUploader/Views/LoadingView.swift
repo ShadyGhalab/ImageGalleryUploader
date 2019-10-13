@@ -3,7 +3,7 @@
 //  ImageUploader
 //
 //  Created by Shady Mustafa on 21.07.19.
-//  Copyright © 2019 Spark Network. All rights reserved.
+//  Copyright © 2019 Babylon Health. All rights reserved.
 //
 
 import UIKit
@@ -24,7 +24,8 @@ final class LoadingView: UIView {
     
     func bindViewModel() {
         viewModel.outputs.uploadingProgress
-            .observe(on: UIScheduler()).observeValues { [unowned self] in
+            .observe(on: UIScheduler())
+            .observeValues { [unowned self] in
                 self.progressLabel.text = $0
         }
     }
