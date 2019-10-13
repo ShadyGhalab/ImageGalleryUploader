@@ -2,7 +2,6 @@
 //  StoryboardMakeable.swift
 //
 //  Created by Shady Mustafa on 16.07.19.
-//  Copyright © 2019 Babylon Health. All rights reserved.
 //
 
 import UIKit
