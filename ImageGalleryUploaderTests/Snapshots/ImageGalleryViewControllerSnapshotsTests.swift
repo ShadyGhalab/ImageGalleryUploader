@@ -2,7 +2,6 @@
 //  ImageGalleryViewControllerSnapshotsTests.swift
 //
 //  Created by Shady Mustafa on 19.07.19.
-//  Copyright © 2019 Babylon Healths. All rights reserved.
 //
 
 import XCTest
