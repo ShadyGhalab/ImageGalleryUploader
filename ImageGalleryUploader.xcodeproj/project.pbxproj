@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3026AFF32352226100430766 /* ReactiveSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3026AFF22352226100430766 /* ReactiveSwift */; };
+		3026AFF523578E8100430766 /* ReactiveSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3026AFF423578E8100430766 /* ReactiveSwift */; };
 		D568169722E7235F00B2FB79 /* LoadingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D568169622E7235F00B2FB79 /* LoadingViewModelTests.swift */; };
 		D568169922E7264200B2FB79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D568169822E7264200B2FB79 /* Localizable.strings */; };
 		D568169B22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D568169A22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift */; };
@@ -20,9 +21,7 @@
 		D5755AD722E305E400E0EEA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5755AD622E305E400E0EEA4 /* Assets.xcassets */; };
 		D5755ADA22E305E400E0EEA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5755AD822E305E400E0EEA4 /* LaunchScreen.storyboard */; };
 		D5755AF522E3100500E0EEA4 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF322E3100500E0EEA4 /* ReactiveCocoa.framework */; };
-		D5755AF622E3100500E0EEA4 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF422E3100500E0EEA4 /* ReactiveSwift.framework */; };
 		D5755AFB22E3106A00E0EEA4 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AFA22E3106A00E0EEA4 /* FBSnapshotTestCase.framework */; };
-		D5755AFC22E3106E00E0EEA4 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF422E3100500E0EEA4 /* ReactiveSwift.framework */; };
 		D5755AFE22E3108400E0EEA4 /* FBSnapshotTestCase.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AFA22E3106A00E0EEA4 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D5755B1D22E314AC00E0EEA4 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF322E3100500E0EEA4 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D5755B1E22E314AC00E0EEA4 /* ReactiveSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF422E3100500E0EEA4 /* ReactiveSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -138,7 +137,6 @@
 			files = (
 				D5755AF522E3100500E0EEA4 /* ReactiveCocoa.framework in Frameworks */,
 				3026AFF32352226100430766 /* ReactiveSwift in Frameworks */,
-				D5755AF622E3100500E0EEA4 /* ReactiveSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,7 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5755AFB22E3106A00E0EEA4 /* FBSnapshotTestCase.framework in Frameworks */,
-				D5755AFC22E3106E00E0EEA4 /* ReactiveSwift.framework in Frameworks */,
+				3026AFF523578E8100430766 /* ReactiveSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +415,9 @@
 				D557F67C22E8B0190000D607 /* PBXTargetDependency */,
 			);
 			name = ImageGalleryUploaderests;
+			packageProductDependencies = (
+				3026AFF423578E8100430766 /* ReactiveSwift */,
+			);
 			productName = ImageUploaderTests;
 			productReference = D5755AE022E305E400E0EEA4 /* ImageGalleryUploaderests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -837,6 +838,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		3026AFF22352226100430766 /* ReactiveSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3026AFF12352226100430766 /* XCRemoteSwiftPackageReference "ReactiveSwift" */;
+			productName = ReactiveSwift;
+		};
+		3026AFF423578E8100430766 /* ReactiveSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3026AFF12352226100430766 /* XCRemoteSwiftPackageReference "ReactiveSwift" */;
 			productName = ReactiveSwift;
