@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let imageGalleryNavigationController = ImageGalleryNavigationController.make()
         let imageGalleryViewController = imageGalleryNavigationController.topViewController as? ImageGalleryViewController
        
-        imageGalleryViewController?.viewModel.inputs.configure(with: fileUploader, fileStorageManager: FileStorageManager())
+        imageGalleryViewController?.viewModel.inputs.configure(with: fileUploader, fileStoring: FileStorageManager())
         
         self.window?.rootViewController = imageGalleryNavigationController
         self.window?.makeKeyAndVisible()

@@ -43,7 +43,7 @@ class ImageGalleryViewControllerSnapshots: FBSnapshotTestCase {
         
         fileStoringManager.writeResourceToFile(withResourceName: resourceName)
         
-        viewController.viewModel.inputs.configure(with: fileUploaderMock, fileStorageManager: FileStorageManager())
+        viewController.viewModel.inputs.configure(with: fileUploaderMock, fileStoring: FileStorageManager())
         
         viewController.loadViewIfNeeded()
         
@@ -57,7 +57,7 @@ class ImageGalleryViewControllerSnapshots: FBSnapshotTestCase {
         
         fileStoringManager.writeResourceToFile(withResourceName: resourceName)
         
-        viewController.viewModel.inputs.configure(with: fileUploaderMock, fileStorageManager: FileStorageManager())
+        viewController.viewModel.inputs.configure(with: fileUploaderMock, fileStoring: FileStorageManager())
 
         viewController.loadViewIfNeeded()
 

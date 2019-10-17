@@ -43,7 +43,7 @@ class ImageGalleryViewModelTests: XCTestCase {
     private func configureViewModel(sectionItems: @escaping SectionItems = { _ in 1 },
                                     numberOfSections: @escaping NumberOfSections = { 1 }) {
         _ = viewModel.outputs.fetchedResultController
-        viewModel.inputs.configure(with: fileUploader, fileStorageManager: fileStorageManager)
+        viewModel.inputs.configure(with: fileUploader, fileStoring: fileStorageManager)
         viewModel.inputs.configure(sectionItems: sectionItems, numberOfSections: numberOfSections)
         
         viewModel.inputs.viewDidLoad()

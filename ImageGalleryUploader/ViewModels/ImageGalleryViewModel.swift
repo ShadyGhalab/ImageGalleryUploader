@@ -15,7 +15,7 @@ typealias SectionItems = ((IndexPath?) -> Int?)
 typealias NumberOfSections = (() -> Int?)
 
 protocol ImageGalleryViewInputs {
-    func configure(with filesUploading: FilesUploading, fileStorageManager: FileStoring)
+    func configure(with filesUploading: FilesUploading, fileStoring: FileStoring)
     func configure(sectionItems: SectionItems?, numberOfSections: NumberOfSections?)
     func viewDidLoad()
     func performBatchUpdatesStarted()
@@ -113,10 +113,10 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
     
     private let fileUploaderProperty = MutableProperty<FilesUploading?>(nil)
     private let fileStorageManagerProperty = MutableProperty<FileStoring?>(nil)
-    func configure(with filesUploading: FilesUploading, fileStorageManager: FileStoring) {
+    func configure(with filesUploading: FilesUploading, fileStoring: FileStoring) {
         (filesUploading as? FilesUploader)?.delegate = self
         fileUploaderProperty.value = filesUploading
-        fileStorageManagerProperty.value = fileStorageManager
+        fileStorageManagerProperty.value = fileStoring
     }
     
     func configure(sectionItems: SectionItems?, numberOfSections: NumberOfSections?) {
