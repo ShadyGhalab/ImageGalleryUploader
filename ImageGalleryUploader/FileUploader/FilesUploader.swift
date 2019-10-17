@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 import os.log
 
+private enum Constants {
+    static let timeoutIntervalForRequest: TimeInterval = 30.0
+    static let timeoutIntervalForResource: TimeInterval = 60.0
+}
+
 fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "FilesUploader") // swiftlint:disable:this force_unwrapping
 
 fileprivate extension URLSessionTask {
@@ -56,8 +61,8 @@ class FilesUploader: NSObject, FilesUploading {
 
     public convenience init(sessionIdentifier: String = UUID().uuidString, cloudName: String) {
         let configuration = URLSessionConfiguration.background(withIdentifier: sessionIdentifier)
-        configuration.timeoutIntervalForRequest = 30.0
-        configuration.timeoutIntervalForResource = 60.0
+        configuration.timeoutIntervalForRequest = Constants.timeoutIntervalForRequest
+        configuration.timeoutIntervalForResource = Constants.timeoutIntervalForResource
         
         self.init(configuration: configuration, cloudName: cloudName)
     }
