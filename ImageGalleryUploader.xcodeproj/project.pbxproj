@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		30B500DC2358F7140013013C /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF422E3100500E0EEA4 /* ReactiveSwift.framework */; };
 		30B500DE2358F71D0013013C /* ReactiveSwift.framework in Copy Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = D5755AF422E3100500E0EEA4 /* ReactiveSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30B500E023590CE70013013C /* ImageGalleryViewController+ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B500DF23590CE70013013C /* ImageGalleryViewController+ImagePicker.swift */; };
 		D568169722E7235F00B2FB79 /* LoadingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D568169622E7235F00B2FB79 /* LoadingViewModelTests.swift */; };
 		D568169922E7264200B2FB79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D568169822E7264200B2FB79 /* Localizable.strings */; };
 		D568169B22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D568169A22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift */; };
@@ -88,6 +89,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		30B500DF23590CE70013013C /* ImageGalleryViewController+ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageGalleryViewController+ImagePicker.swift"; sourceTree = "<group>"; };
 		D568169622E7235F00B2FB79 /* LoadingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModelTests.swift; sourceTree = "<group>"; };
 		D568169822E7264200B2FB79 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		D568169A22E744AF00B2FB79 /* ImageGalleryCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryCellViewModelTests.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				D5755B3722E37C3E00E0EEA4 /* ImageGalleryViewController.swift */,
+				30B500DF23590CE70013013C /* ImageGalleryViewController+ImagePicker.swift */,
 				D5755B3622E37C3E00E0EEA4 /* ImageGalleryDetailsViewController.swift */,
 				D5755BA122E63E2600E0EEA4 /* ImageGalleryNavigationController.swift */,
 				D5755B3322E37BE300E0EEA4 /* Cells */,
@@ -519,6 +522,7 @@
 				D5755B7322E4B59D00E0EEA4 /* UploadedResource.swift in Sources */,
 				D5755B6A22E39B4100E0EEA4 /* Resource+CoreDataClass.swift in Sources */,
 				D5755B4022E37C8B00E0EEA4 /* ImageGalleryCellViewModel.swift in Sources */,
+				30B500E023590CE70013013C /* ImageGalleryViewController+ImagePicker.swift in Sources */,
 				D5755B7C22E4FEFF00E0EEA4 /* LoadingViewModel.swift in Sources */,
 				D5755B3E22E37C7A00E0EEA4 /* ImageGalleryDetailsViewModel.swift in Sources */,
 				D5755B4722E37D0E00E0EEA4 /* UITraitCollection+SizeClasses.swift in Sources */,
