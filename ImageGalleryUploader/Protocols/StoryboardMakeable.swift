@@ -14,7 +14,7 @@ public protocol StoryboardMakeable: AnyObject {
 
 public extension StoryboardMakeable where Self: UIViewController {
     static func make() -> StoryboardMakeableType {
-        let viewControllerId = NSStringFromClass(self).components(separatedBy: ".").last ?? ""
+        let viewControllerId = String(describing: self)
         
         return make(with: viewControllerId)
     }
