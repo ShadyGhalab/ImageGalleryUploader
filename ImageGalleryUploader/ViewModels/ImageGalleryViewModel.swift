@@ -191,7 +191,7 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
     let loadingIndicatorStarted: Signal<(), Never>
     let loadingIndicatorStopped: Signal<(), Never>
     let uploadingProgress: Signal<Float, Never>
-    var uploadingFailed: Signal<(), Never>
+    let uploadingFailed: Signal<(), Never>
 }
 
 extension ImageGalleryViewModel: NSFetchedResultsControllerDelegate {
