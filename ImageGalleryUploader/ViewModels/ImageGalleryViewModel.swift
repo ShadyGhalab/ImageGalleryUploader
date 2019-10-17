@@ -15,7 +15,7 @@ typealias SectionItems = ((IndexPath?) -> Int?)
 typealias NumberOfSections = (() -> Int?)
 
 protocol ImageGalleryViewInputs {
-    func configure(with fileUploader: FilesUploading, fileStorageManager: FilesStoring)
+    func configure(with fileUploader: FilesUploading, fileStorageManager: FileStoring)
     func configure(sectionItems: SectionItems?, numberOfSections: NumberOfSections?)
     func viewDidLoad()
     func performBatchUpdatesStarted()
@@ -72,7 +72,7 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
             .skipRepeats ( == )
             .withLatest(from: dataAndNameSignal.signal)
             .withLatest(from: fileStorageManagerProperty.signal.skipNil())
-            .map { arg0 -> (String, Data, FilesStoring) in
+            .map { arg0 -> (String, Data, FileStoring) in
                 let ((_, (data, name)), filesStoring) = arg0
                 
                 return (name, data, filesStoring)
@@ -112,8 +112,8 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
     }
     
     private let fileUploaderProperty = MutableProperty<FilesUploading?>(nil)
-    private let fileStorageManagerProperty = MutableProperty<FilesStoring?>(nil)
-    func configure(with fileUploader: FilesUploading, fileStorageManager: FilesStoring) {
+    private let fileStorageManagerProperty = MutableProperty<FileStoring?>(nil)
+    func configure(with fileUploader: FilesUploading, fileStorageManager: FileStoring) {
         var filesUploading = fileUploader
         filesUploading.delegate = self
         fileUploaderProperty.value = fileUploader

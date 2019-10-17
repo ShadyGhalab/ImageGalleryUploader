@@ -27,7 +27,7 @@ struct ImageGalleryDetailsViewModel: ImageGalleryDetailsViewInputs, ImageGallery
     var inputs: ImageGalleryDetailsViewInputs { return self }
     var outputs: ImageGalleryDetailsViewOutputs { return self }
    
-    private let fileManager = FileStorageManager()
+    private let fileManager: FileStoring = FileStorageManager()
 
     init() {
         

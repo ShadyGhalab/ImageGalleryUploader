@@ -13,7 +13,7 @@ class ImageGalleryDetailsViewModelTests: XCTestCase {
 
     private let viewModel: ImageGalleryDetailsViewProtocol = ImageGalleryDetailsViewModel()
     private let image: TestObserver<UIImage, Never> = TestObserver()
-    private let fileStoringManager = FileStorageManager()
+    private let fileStoringManager: FileStoring = FileStorageManager()
     private let resourceName = "Cat"
     private lazy var resource = Resource.make(id: UUID().uuidString,
                                  name: resourceName,

@@ -50,7 +50,7 @@ class FilesUploader: NSObject, FilesUploading {
     private let clouldPresentParameters = ["upload_preset": "zl2tzkdx"]
     private let responseDecoder: DataResponseDecoding = DataResponseDecoder()
     private let uploadedDecodedItem = UploadedDecodedItem()
-    private let fileStorageManager: FilesStoring = FileStorageManager()
+    private let fileStorageManager: FileStoring = FileStorageManager()
 
     weak var delegate: FilesUploaderDelegate?
 

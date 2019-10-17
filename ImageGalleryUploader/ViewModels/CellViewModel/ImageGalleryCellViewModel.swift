@@ -26,7 +26,7 @@ struct ImageGalleryCellViewModel: ImageGalleryCellViewInputs, ImageGalleryCellVi
   
     var inputs: ImageGalleryCellViewInputs { return self }
     var outputs: ImageGalleryCellViewOutputs { return self }
-    private let fileManager = FileStorageManager()
+    private let fileManager: FileStoring = FileStorageManager()
     
     init() {
 

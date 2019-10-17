@@ -27,7 +27,7 @@ class ImageGalleryViewModelTests: XCTestCase {
     private let uploadingProgress: TestObserver<Float, Never> = TestObserver()
 
     private let fileUploader = FilesUploader(cloudName: "dmpiy9djh")
-    private let fileStorageManager = FileStorageManager()
+    private let fileStorageManager: FileStoring = FileStorageManager()
     private let testImage = UIImage(color: .blue)
     private lazy var resourceData = testImage?.compressedData
 

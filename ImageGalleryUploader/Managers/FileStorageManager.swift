@@ -7,13 +7,15 @@
 
 import Foundation
 
-protocol FilesStoring: AnyObject {
+protocol FileStoring: AnyObject {
+    var documentUrl: URL { get }
+    
     func write(data: Data, withResourceName resourceName: String) throws -> URL
     func removeData(for resourceName: String) throws
     func replaceData(withResourceName resourceName: String, for data: Data) throws
 }
 
-final class FileStorageManager: FilesStoring {
+final class FileStorageManager: FileStoring {
     private let fileManager: FileManager
    
      lazy var documentUrl: URL = {

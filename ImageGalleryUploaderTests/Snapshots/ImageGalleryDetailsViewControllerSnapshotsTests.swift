@@ -14,7 +14,7 @@ import ReactiveSwift
 class ImageGalleryDetailsViewControllerSnapshotsTests: FBSnapshotTestCase {
     private var imageGalleryNavigationController: ImageGalleryNavigationController!
     private var viewController: ImageGalleryDetailsViewController!
-    private let fileStoringManager = FileStorageManager()
+    private let fileStoringManager: FileStoring = FileStorageManager()
     private let resourceName = "Cat"
     private let resource = Resource.make(id: UUID().uuidString,
                                          name: "Cat",
@@ -60,7 +60,7 @@ class ImageGalleryDetailsViewControllerSnapshotsTests: FBSnapshotTestCase {
 
 }
 
-extension FileStorageManager {
+extension FileStoring {
     func writeResourceToFile(withResourceName name: String, with image: UIImage =  UIImage(color: .blue)!)  {
         do {
             try _ = write(data: image.jpegData(compressionQuality: 1)!, withResourceName: name)

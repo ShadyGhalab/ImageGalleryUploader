@@ -14,7 +14,7 @@ class ImageGalleryViewControllerSnapshots: FBSnapshotTestCase {
     
     private var imageGalleryNavigationController: ImageGalleryNavigationController!
     private var viewController: ImageGalleryViewController!
-    private let fileStoringManager = FileStorageManager()
+    private let fileStoringManager: FileStoring = FileStorageManager()
     private let fileUploaderMock = FileUploaderMock()
     private let resourceName = "Cat"
     private var resource1: Resource?
