@@ -15,8 +15,8 @@ private enum Constants {
 
 final class ImageGalleryCollectionViewCell: UICollectionViewCell {
    
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var uploadingStatusimageView: UIImageView!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var uploadingStatusimageView: UIImageView!
 
     let viewModel: ImageGalleryCellViewProtocol = ImageGalleryCellViewModel()
     

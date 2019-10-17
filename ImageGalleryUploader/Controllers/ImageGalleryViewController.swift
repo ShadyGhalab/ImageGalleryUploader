@@ -24,7 +24,7 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
     static var storyboardName: String = "ImageGallery"
     typealias StoryboardMakeableType = ImageGalleryViewController
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
     
     let viewModel: ImageGalleryViewProtocol = ImageGalleryViewModel()
     private var dataSource: ImageGalleryDataSource? {
@@ -45,8 +45,11 @@ final class ImageGalleryViewController: UIViewController, StoryboardMakeable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupDataSource()
+        
         bindViewModel()
+        
         viewModel.inputs.configure(sectionItems: sectionItems, numberOfSections: numberOfSections)
         viewModel.inputs.viewDidLoad()
     }

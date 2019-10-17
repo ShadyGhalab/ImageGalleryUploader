@@ -113,10 +113,9 @@ final class ImageGalleryViewModel: NSObject, ImageGalleryViewInputs, ImageGaller
     
     private let fileUploaderProperty = MutableProperty<FilesUploading?>(nil)
     private let fileStorageManagerProperty = MutableProperty<FileStoring?>(nil)
-    func configure(with fileUploader: FilesUploading, fileStorageManager: FileStoring) {
-        var filesUploading = fileUploader
-        filesUploading.delegate = self
-        fileUploaderProperty.value = fileUploader
+    func configure(with filesUploading: FilesUploading, fileStorageManager: FileStoring) {
+        (filesUploading as? FilesUploader)?.delegate = self
+        fileUploaderProperty.value = filesUploading
         fileStorageManagerProperty.value = fileStorageManager
     }
     
