@@ -30,7 +30,7 @@ public enum UploadCancelReason: Int {
     case malformedUrl = -1000
 }
 
-public protocol FilesUploaderDelegate: class {
+public protocol FilesUploaderDelegate: AnyObject {
     func didFinishUploading(for url: URL, resourceInfo: ResourceInfo?)
     func didChangeProgress(for url: URL, progress: Float)
     func uploadFailed(for url: URL?, cancellationReason: UploadCancelReason?, error: Error?)

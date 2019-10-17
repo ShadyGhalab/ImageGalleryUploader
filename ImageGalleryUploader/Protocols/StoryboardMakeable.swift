@@ -6,7 +6,7 @@
 
 import UIKit
 
-public protocol StoryboardMakeable: class {
+public protocol StoryboardMakeable: AnyObject {
     associatedtype StoryboardMakeableType
     static var storyboardName: String { get }
     static func make() -> StoryboardMakeableType
