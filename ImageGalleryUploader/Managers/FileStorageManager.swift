@@ -14,11 +14,15 @@ protocol FilesStoring: AnyObject {
 }
 
 final class FileStorageManager: FilesStoring {
-     private let fileManager = FileManager.default
+    private let fileManager: FileManager
    
      lazy var documentUrl: URL = {
          fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! // swiftlint:disable:this force_unwrapping
      }()
+    
+    init(fileManager: FileManager = FileManager.default) {
+        self.fileManager = fileManager
+    }
     
     func write(data: Data, withResourceName resourceName: String) throws -> URL {
         let url = documentUrl.appendingPathComponent(resourceName)
