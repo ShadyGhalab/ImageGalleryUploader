@@ -15,7 +15,7 @@ typealias SectionItems = ((IndexPath?) -> Int?)
 typealias NumberOfSections = (() -> Int?)
 
 protocol ImageGalleryViewInputs {
-    func configure(with fileUploader: FilesUploading, fileStorageManager: FileStoring)
+    func configure(with filesUploading: FilesUploading, fileStorageManager: FileStoring)
     func configure(sectionItems: SectionItems?, numberOfSections: NumberOfSections?)
     func viewDidLoad()
     func performBatchUpdatesStarted()
