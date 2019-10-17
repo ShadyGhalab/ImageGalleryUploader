@@ -41,7 +41,6 @@ If you opt for a db approach, store in whatever storage you see fit.
  - Install Swiftlint using: brew install swiftlint
  - git clone https://github.com/ShadyGhalab/ImageUploader.git
  - carthage update --platform iOS
- - Wait for Swift Package Manager to update its dependencies
  - Run! 😎
 ```
 
